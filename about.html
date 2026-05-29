@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Gerarda | Gerarda Sullivan Counselling & Psychotherapy</title>
+  <meta name="description" content="About Gerarda Sullivan — MSc, BACP Registered Integrative Counsellor and Psychotherapist. Training, approach, and professional background.">
+  <meta name="keywords" content="BACP registered counsellor, integrative psychotherapist, University of Derby, MSc Integrative Counselling, Person-centred therapy">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .about-intro {
+      padding: 48px 0 0;
+      background: var(--stone);
+    }
+    .about-intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 72px;
+      align-items: start;
+    }
+    .about-photo-col img {
+      width: 100%;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 48px rgba(26,58,42,0.16), 0 3px 10px rgba(26,58,42,0.08);
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .about-intro-text h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 400;
+      color: var(--forest);
+      line-height: 1.3;
+      margin-bottom: 24px;
+    }
+    .about-intro-text p {
+      font-size: 0.975rem;
+      color: var(--text-mid);
+      line-height: 1.85;
+      margin-bottom: 20px;
+    }
+    .about-intro-text .callout {
+      background: var(--stone);
+      border-left: 3px solid var(--sage);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 18px 22px;
+      font-style: italic;
+      color: var(--forest);
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin: 28px 0;
+    }
+
+    .about-sections {
+      background: var(--stone);
+      padding: 8px 0 0;
+    }
+    .about-section {
+      padding: 36px 0;
+      border-top: none;
+    }
+    .about-section-inner {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .about-section-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--sage);
+      padding-top: 6px;
+      line-height: 1.5;
+    }
+    .about-section-body h3 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--forest);
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    .about-section-body p {
+      font-size: 0.95rem;
+      color: var(--text-mid);
+      line-height: 1.85;
+      margin-bottom: 16px;
+    }
+    .about-section-body p:last-child { margin-bottom: 0; }
+
+    .credentials-footer {
+      padding: 36px 0 64px;
+      border-top: none;
+    }
+    .credentials-footer-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 20px;
+    }
+    .cred-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+    .cred-item-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .cred-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--sky);
+      flex-shrink: 0;
+    }
+    .cred-item-row span {
+      font-size: 0.925rem;
+      color: var(--text-mid);
+    }
+    .about-cta-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 860px) {
+      .about-intro-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-photo-col img { max-width: 300px; aspect-ratio: 4/5; }
+      .about-section-inner { grid-template-columns: 1fr; gap: 12px; }
+      .about-section-label { padding-top: 0; }
+    }
+  </style>
+  <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/klaro@0.7.21/dist/klaro.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/klaro@0.7.21/dist/klaro.min.js"></script>
+  <script src="js/klaro-config.js"></script>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-name">Gerarda Sullivan</span>
+        <span class="logo-sub">Counselling & Psychotherapy</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="how-i-work.html">How I Work</a></li>
+        <li><a href="fees.html">Fees & FAQ</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html" class="nav-cta">Book a Consultation</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="section-eyebrow">About Gerarda</p>
+      <h1>A therapist who meets you<br><em>where you are.</em></h1>
+      <p class="hero-sub">Warm, experienced, and committed to creating a confidential space where you feel safe to explore what matters most.</p>
+    </div>
+  </section>
+
+  <!-- Intro: photo + opening paragraphs -->
+  <section class="about-intro">
+    <div class="container">
+      <div class="about-intro-grid">
+
+        <div class="about-photo-col">
+          <img src="images/dsc_1931.jpg" alt="Gerarda Sullivan, Integrative Counsellor and Psychotherapist">
+        </div>
+
+        <div class="about-intro-text">
+          <h2>I'm Gerarda Sullivan — Integrative Counsellor and Psychotherapist.</h2>
+          <p>I completed my training at the University of Derby on a BACP-accredited Master's programme in Integrative Counselling and Psychotherapy. My integrative framework brings together Person-Centered Therapy, Cognitive Behavioural Therapy (CBT), and Attachment Theory, allowing me to adapt therapy to each person's unique needs with empathy, insight, and practical tools.</p>
+          <p>My work is grounded in professional ethics, ongoing professional development, and reflective practice. As a registered member of the British Association for Counselling and Psychotherapy (BACP), I am committed to maintaining high standards of care and creating a confidential, non-judgmental space where you can feel safe to explore what matters most to you.</p>
+          <blockquote class="callout">
+            Healing isn't about perfection — it's about reclaiming a sense of wholeness and self-trust.
+          </blockquote>
+          <p>At the heart of my work is a belief that healing happens within relationships, in being truly heard, understood, and accepted. I work from a trauma-informed and relational perspective, recognising that our past experiences shape how we live and connect today. Therapy becomes a collaborative process, meeting you where you are and supporting both who you are and who you are becoming.</p>
+          <p>I hold a deep respect for human resilience and the ways people grow through even the most difficult experiences. Again and again, I have seen how courage and connection can help transform pain into new understanding. For me, healing is not about perfection; it is about integration, making sense of what has been, reclaiming self-trust, and discovering that strength and vulnerability can exist side by side.</p>
+          <p>I bring warmth, authenticity, and a steady presence to my sessions. You don't need to arrive with the right words or a clear plan; we begin wherever you are and move at your pace.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Spaced sections -->
+  <div class="about-sections">
+    <div class="container">
+
+      <div class="about-section">
+        <div class="about-section-inner">
+          <p class="about-section-label">My Philosophy</p>
+          <div class="about-section-body">
+            <h3>Healing happens within relationship.</h3>
+            <p>At the heart of my work is a belief that healing happens when we feel truly heard, understood, and accepted. I see therapy as a collaborative process — I hold space for your story with compassion and curiosity, supporting you to make sense of your experiences and discover new ways forward.</p>
+            <p>I work from a trauma-informed and relational perspective, recognising that our past relationships and experiences shape how we live and connect today. My intention is always to meet you where you are.</p>
+          </div>
+        </div>
+      </div>
+
+  <div class="dot-divider"><span></span><span></span><span></span></div>
+      <div class="about-section">
+        <div class="about-section-inner">
+          <p class="about-section-label">Professional Standards</p>
+          <div class="about-section-body">
+            <h3>Grounded in ethics and ongoing practice.</h3>
+            <p>My work is grounded in professional ethics, continuing professional development, and reflective practice. I am a registered member of the British Association for Counselling and Psychotherapy (BACP) and adhere to their Ethical Framework for the Counselling Professions.</p>
+            <p>I engage in regular clinical supervision and ongoing CPD to ensure the highest standard of care — and to make sure the work I offer remains safe, thoughtful, and effective.</p>
+          </div>
+        </div>
+      </div>
+
+  <div class="dot-divider"><span></span><span></span><span></span></div>
+      <div class="about-section">
+        <div class="about-section-inner">
+          <p class="about-section-label">A Personal Note</p>
+          <div class="about-section-body">
+            <h3>What drew me to this work.</h3>
+            <p>Becoming a therapist has been a natural extension of my lifelong interest in human resilience and growth. I've seen how courage and connection can help people transform even the most painful experiences into new understanding.</p>
+            <p>This work continually reminds me of our shared capacity for change — that healing is not about being fixed, but about reclaiming a sense of self-trust and finding that strength and vulnerability can exist side by side.</p>
+          </div>
+        </div>
+      </div>
+
+  <div class="dot-divider"><span></span><span></span><span></span></div>
+      <!-- Credentials at bottom -->
+      <div class="credentials-footer">
+        <p class="credentials-footer-label">Qualifications & Membership</p>
+        <div class="cred-list">
+          <div class="cred-item-row">
+            <span class="cred-dot"></span>
+            <span>MSc Integrative Counselling & Psychotherapy, University of Derby</span>
+          </div>
+          <div class="cred-item-row">
+            <span class="cred-dot"></span>
+            <span>Registered Member, British Association for Counselling &amp; Psychotherapy (BACP) &middot; <a href="https://www.bacp.co.uk/therapists/416049/gerarda-sullivan/amesbury-sp4" target="_blank" rel="noopener" style="color: var(--sage);">MBACP #416049</a></span>
+          </div>
+          <div class="cred-item-row">
+            <span class="cred-dot"></span>
+            <span>Listed on <a href="https://www.psychologytoday.com/profile/1723607" target="_blank" rel="noopener" style="color: var(--sage);">Psychology Today</a> &mdash; verified therapist directory</span>
+          </div>
+          <div class="cred-item-row">
+            <span class="cred-dot"></span>
+            <span>Committed to ongoing professional development and reflective practice</span>
+          </div>
+          <div class="cred-item-row">
+            <span class="cred-dot"></span>
+            <span>Online therapy for adults and relationships</span>
+          </div>
+        </div>
+        <div class="about-cta-row">
+          <a href="https://calendar.app.google/1yniNk9xHVaWzoUQ8" target="_blank" rel="noopener" class="btn-primary">Book a free consultation</a>
+          <a href="how-i-work.html" class="btn-outline">How I work →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <section style="background: var(--stone); padding: 40px 0;">
+    <div class="container">
+      <div class="how-i-work-cta">
+        <h2>Ready to take the first step?</h2>
+        <p>A free 15-minute consultation lets us see if we're a good fit — no pressure, no obligation.</p>
+        <div class="hiw-cta-btns">
+          <a href="https://calendar.app.google/1yniNk9xHVaWzoUQ8" target="_blank" rel="noopener" class="btn-white-cta">Book a free consultation</a>
+          <a href="how-i-work.html" class="btn-outline-cta">How I work →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+      <footer class="footer">
+    <div class="container footer-centred">
+      <p class="footer-name">Gerarda Sullivan</p>
+      <p class="footer-tagline">Counselling & Psychotherapy</p>
+      <div class="footer-badges">
+        <a href="https://www.bacp.co.uk/therapists/416049/gerarda-sullivan/amesbury-sp4" target="_blank" rel="noopener" class="footer-bacp-link" aria-label="BACP registered member directory listing">
+          <img src="images/bacp_logo_-_416049.png" alt="BACP Registered Member" class="footer-bacp">
+        </a>
+        <a href="https://www.psychologytoday.com/profile/1723607" target="_blank" rel="noopener" class="footer-pt-badge" aria-label="Psychology Today therapist profile">
+          <span class="pt-badge-logo">Psychology Today</span>
+          <span class="pt-badge-verified">Verified Therapist</span>
+        </a>
+      </div>
+      <p class="footer-bacp-text">Accredited Register · Professional Standards Authority</p>
+      <nav class="footer-nav">
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="how-i-work.html">How I Work</a>
+        <a href="fees.html">Fees & FAQ</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="#" onclick="klaro.show();return false;">Cookie settings</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p>&#169; 2026 Gerarda Sullivan &middot; All rights reserved &middot; Online Counselling &amp; Psychotherapy</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

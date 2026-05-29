@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Gerarda Sullivan Counselling & Psychotherapy</title>
+  <meta name="description" content="Get in touch with Gerarda Sullivan to book a free 15-minute consultation or ask a question about online therapy. UK and international clients welcome.">
+  <meta name="keywords" content="book therapy online, contact counsellor, free consultation, online therapy booking">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/klaro@0.7.21/dist/klaro.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/klaro@0.7.21/dist/klaro.min.js"></script>
+  <script src="js/klaro-config.js"></script>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-name">Gerarda Sullivan</span>
+        <span class="logo-sub">Counselling & Psychotherapy</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="how-i-work.html">How I Work</a></li>
+        <li><a href="fees.html">Fees & FAQ</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html" class="nav-cta">Book a Consultation</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="section-eyebrow">Get in Touch</p>
+      <h1>No pressure.<br><em>Just a conversation.</em></h1>
+      <p class="hero-sub">I offer online therapy and relationship counselling to adults based in the UK and internationally. Whether you're ready to begin or simply want to find out more, I'd be glad to hear from you.</p>
+    </div>
+  </section>
+
+  <!-- Direct Booking Band -->
+  <section style="background: var(--sage); padding: 32px 20px; text-align: center;">
+    <div class="container">
+      <p style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 8px;">Ready to begin?</p>
+      <h2 style="font-family: var(--font-serif); font-size: clamp(1.4rem,2.5vw,1.9rem); font-weight: 400; color: #fff; margin-bottom: 20px; line-height: 1.2;">Book directly online &mdash; no waiting.</h2>
+      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+        <a href="https://calendar.app.google/1yniNk9xHVaWzoUQ8" target="_blank" rel="noopener" class="btn-white-cta">Free 15-min consultation</a>
+        <a href="https://calendar.app.google/Kbg3UNAz7JTk24cW6" target="_blank" rel="noopener" style="background: transparent; color: #fff; font-size: 0.9rem; font-weight: 500; padding: 12px 28px; border-radius: 40px; border: 1.5px solid rgba(255,255,255,0.5); display: inline-block;">Individual therapy &pound;70</a>
+        <a href="https://calendar.app.google/tPLepxPLuq8z8Sd17" target="_blank" rel="noopener" style="background: transparent; color: #fff; font-size: 0.9rem; font-weight: 500; padding: 12px 28px; border-radius: 40px; border: 1.5px solid rgba(255,255,255,0.5); display: inline-block;">Couples counselling &pound;150</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-content" style="padding: 0;">
+    <div class="container contact-grid">
+
+      <div class="contact-form-wrap">
+        <h2>Send a message</h2>
+        <p>Fill in the form below and I'll be in touch. You don't need to explain everything — a brief note about what's on your mind is enough.</p>
+
+        <form id="contact-form" name="contact" method="POST" action="/thank-you" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="contact">
+          <p style="display:none;"><label>Don't fill this in: <input name="bot-field"></label></p>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="name">Your name</label>
+              <input type="text" id="name" name="name" required placeholder="First name is fine">
+            </div>
+            <div class="form-field">
+              <label for="email">Email address</label>
+              <input type="email" id="email" name="email" required placeholder="your@email.com">
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="enquiry-type">What would you like to discuss?</label>
+            <select id="enquiry-type" name="enquiry_type">
+              <option value="">— Select an option —</option>
+              <option value="free-consultation">Book a free 15-minute consultation</option>
+              <option value="individual-therapy">Individual therapy enquiry</option>
+              <option value="relationship-therapy">Relationship / couples therapy</option>
+              <option value="question">General question</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="message">Your message <span style="font-weight:300; text-transform: none; letter-spacing: 0;">(optional)</span></label>
+            <textarea id="message" name="message" placeholder="Share as much or as little as you'd like — there's no right or wrong way to reach out."></textarea>
+          </div>
+          <button type="submit" class="btn-primary btn-large" style="width: 100%; margin-top: 8px;">Send message</button>
+        </form>
+
+        <div id="form-success" class="form-success">
+          <strong>Thank you for reaching out.</strong><br>
+          I've received your message and will be in touch within 24–48 hours. If you have any urgent concerns, please call the Samaritans on 116 123 (free, 24/7).
+        </div>
+      </div>
+
+      <div>
+        <div class="contact-info-box">
+          <h3>What to expect</h3>
+
+          <div class="contact-detail">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+            </svg>
+            <div>
+              <p><strong>How to reach me</strong></p>
+              <p>All enquiries come through the contact form. This keeps your details secure and helps me give each message the considered response it deserves.</p>
+            </div>
+          </div>
+
+          <div class="contact-detail">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+            </svg>
+            <div>
+              <p><strong>Response time</strong></p>
+              <p>I aim to reply within 24–48 hours, Monday to Friday.</p>
+            </div>
+          </div>
+
+          <div class="contact-detail">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            <div>
+              <p><strong>Confidentiality</strong></p>
+              <p>Everything you share with me is treated with full confidentiality and professional care, in line with the BACP Ethical Framework and UK GDPR.</p>
+            </div>
+          </div>
+
+          <p class="contact-note">You don't need to have the right words. Reaching out is the first step — I'll take it from there.</p>
+        </div>
+
+        <div style="margin-top: 24px; padding: 28px; border: 1px solid rgba(122,158,126,0.25); border-left: 3px solid var(--sage); border-radius: var(--radius-lg); background: #fff;">
+          <p style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage); margin-bottom: 12px;">If you are in crisis</p>
+          <p style="font-size: 0.875rem; color: var(--text-mid); line-height: 1.8; margin-bottom: 12px;">If you are in immediate danger or need urgent support, please contact your <strong>local emergency services</strong> immediately.</p>
+          <p style="font-size: 0.82rem; font-weight: 500; color: var(--forest); margin-bottom: 6px;">UK</p>
+          <p style="font-size: 0.875rem; color: var(--text-mid); line-height: 1.8; margin-bottom: 12px;">Emergency services: <strong>999</strong><br>Samaritans: <strong>116 123</strong> — free, confidential, 24 hours a day<br>Crisis text line: text <strong>SHOUT</strong> to <strong>85258</strong></p>
+          <p style="font-size: 0.82rem; font-weight: 500; color: var(--forest); margin-bottom: 6px;">International</p>
+          <p style="font-size: 0.875rem; color: var(--text-mid); line-height: 1.8;">Contact your local emergency services or visit <strong>findahelpline.com</strong> to find a crisis line in your country — available in over 30 countries, free to use.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+      <footer class="footer">
+    <div class="container footer-centred">
+      <p class="footer-name">Gerarda Sullivan</p>
+      <p class="footer-tagline">Counselling & Psychotherapy</p>
+      <div class="footer-badges">
+        <a href="https://www.bacp.co.uk/therapists/416049/gerarda-sullivan/amesbury-sp4" target="_blank" rel="noopener" class="footer-bacp-link" aria-label="BACP registered member directory listing">
+          <img src="images/bacp_logo_-_416049.png" alt="BACP Registered Member" class="footer-bacp">
+        </a>
+        <a href="https://www.psychologytoday.com/profile/1723607" target="_blank" rel="noopener" class="footer-pt-badge" aria-label="Psychology Today therapist profile">
+          <span class="pt-badge-logo">Psychology Today</span>
+          <span class="pt-badge-verified">Verified Therapist</span>
+        </a>
+      </div>
+      <p class="footer-bacp-text">Accredited Register · Professional Standards Authority</p>
+      <nav class="footer-nav">
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="how-i-work.html">How I Work</a>
+        <a href="fees.html">Fees & FAQ</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="#" onclick="klaro.show();return false;">Cookie settings</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p>&#169; 2026 Gerarda Sullivan &middot; All rights reserved &middot; Online Counselling &amp; Psychotherapy</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You | Gerarda Sullivan Counselling & Psychotherapy</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
+  <style>
+    .thankyou-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .thankyou-main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: calc(var(--nav-height) + 60px) 24px 80px;
+      background: var(--stone);
+    }
+    .thankyou-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      border: 1.5px solid rgba(122, 158, 126, 0.25);
+      box-shadow: 0 4px 40px rgba(26, 58, 42, 0.07);
+      padding: 56px 48px;
+      max-width: 560px;
+      width: 100%;
+      text-align: center;
+    }
+    .thankyou-icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(122, 158, 126, 0.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+    }
+    .thankyou-icon svg {
+      width: 26px;
+      height: 26px;
+      stroke: var(--sage);
+    }
+    .thankyou-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 14px;
+    }
+    .thankyou-heading {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 400;
+      color: var(--forest);
+      line-height: 1.25;
+      margin-bottom: 20px;
+    }
+    .thankyou-heading em {
+      font-style: italic;
+      color: var(--sage);
+    }
+    .thankyou-body {
+      font-size: 0.95rem;
+      color: var(--text-mid);
+      line-height: 1.8;
+      margin-bottom: 36px;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .thankyou-divider {
+      width: 40px;
+      height: 1.5px;
+      background: rgba(122, 158, 126, 0.35);
+      margin: 0 auto 32px;
+    }
+    .thankyou-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .thankyou-note {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(160, 140, 110, 0.15);
+      font-size: 0.8rem;
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+    @media (max-width: 560px) {
+      .thankyou-card { padding: 40px 24px; }
+      .thankyou-actions { flex-direction: column; align-items: center; }
+      .thankyou-actions .btn-primary,
+      .thankyou-actions .btn-outline { width: 100%; text-align: center; }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/klaro@0.7.21/dist/klaro.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/klaro@0.7.21/dist/klaro.min.js"></script>
+  <script src="js/klaro-config.js"></script>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-name">Gerarda Sullivan</span>
+        <span class="logo-sub">Counselling & Psychotherapy</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="how-i-work.html">How I Work</a></li>
+        <li><a href="fees.html">Fees & FAQ</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html" class="nav-cta">Book a Consultation</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="thankyou-wrap">
+    <div class="thankyou-main">
+      <div class="thankyou-card">
+
+        <div class="thankyou-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+
+        <p class="thankyou-eyebrow">Message received</p>
+        <h1 class="thankyou-heading">Your message<br><em>is on its way.</em></h1>
+
+        <div class="thankyou-divider"></div>
+
+        <p class="thankyou-body">
+      Thank you for getting in touch. Your message has been received and I will personally respond within <strong>24–48 hours</strong>.
+    </p>
+    <p class="thankyou-body" style="margin-top: -16px;">
+      Taking this first step takes courage. Whatever brings you here, I look forward to connecting with you and finding out how I can help.
+    </p>
+    <p class="thankyou-body" style="margin-top: -16px; font-family: var(--font-serif); font-style: italic; font-size: 1.05rem; color: var(--forest);">
+      — Gerarda
+    </p>
+
+        <div class="thankyou-actions">
+          <a href="index.html" class="btn-primary">Return to home</a>
+          <a href="how-i-work.html" class="btn-outline">How I work →</a>
+        </div>
+
+        <p class="thankyou-note">
+          If you need urgent support before I respond, please contact the Samaritans on <strong>116 123</strong> — free, confidential, and available 24 hours a day.
+        </p>
+
+      </div>
+    </div>
+  </main>
+
+      <footer class="footer">
+    <div class="container footer-centred">
+      <p class="footer-name">Gerarda Sullivan</p>
+      <p class="footer-tagline">Counselling & Psychotherapy</p>
+      <div class="footer-badges">
+        <a href="https://www.bacp.co.uk/therapists/416049/gerarda-sullivan/amesbury-sp4" target="_blank" rel="noopener" class="footer-bacp-link" aria-label="BACP registered member directory listing">
+          <img src="images/bacp_logo_-_416049.png" alt="BACP Registered Member" class="footer-bacp">
+        </a>
+        <a href="https://www.psychologytoday.com/profile/1723607" target="_blank" rel="noopener" class="footer-pt-badge" aria-label="Psychology Today therapist profile">
+          <span class="pt-badge-logo">Psychology Today</span>
+          <span class="pt-badge-verified">Verified Therapist</span>
+        </a>
+      </div>
+      <p class="footer-bacp-text">Accredited Register · Professional Standards Authority</p>
+      <nav class="footer-nav">
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="how-i-work.html">How I Work</a>
+        <a href="fees.html">Fees & FAQ</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="#" onclick="klaro.show();return false;">Cookie settings</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p>&#169; 2026 Gerarda Sullivan &middot; All rights reserved &middot; Online Counselling &amp; Psychotherapy</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
