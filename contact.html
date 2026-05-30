@@ -79,7 +79,7 @@
         <h2>Send a message</h2>
         <p>Fill in the form below and I'll be in touch. You don't need to explain everything — a brief note about what's on your mind is enough.</p>
 
-        <form id="contact-form" name="contact" method="POST" action="/thank-you" data-netlify="true" netlify-honeypot="bot-field">
+        <form id="contact-form" name="contact" method="POST" action="/thank-you" data-netlify="true" netlify-honeypot="bot-field" data-netlify-recaptcha="true">
           <input type="hidden" name="form-name" value="contact">
           <p style="display:none;"><label>Don't fill this in: <input name="bot-field"></label></p>
           <div class="form-row">
@@ -106,6 +106,7 @@
             <label for="message">Your message <span style="font-weight:300; text-transform: none; letter-spacing: 0;">(optional)</span></label>
             <textarea id="message" name="message" placeholder="Share as much or as little as you'd like — there's no right or wrong way to reach out."></textarea>
           </div>
+          <div data-netlify-recaptcha="true" style="margin-bottom: 12px;"></div>
           <button type="submit" class="btn-primary btn-large" style="width: 100%; margin-top: 8px;">Send message</button>
         </form>
 

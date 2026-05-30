@@ -35,7 +35,7 @@
 
   const KB = {
     fees: 'Individual therapy is £70 per 50-minute session. Couples counselling is £150 per 50-minute session. A free 15-minute consultation is also available — no obligation, just a chance to ask questions and see if working together feels right.',
-    book: 'You can book directly online: free 15-min consultation → https://calendar.app.google/1yniNk9xHVaWzoUQ8 | Individual therapy → https://calendar.app.google/Kbg3UNAz7JTk24cW6 | Couples counselling → https://calendar.app.google/tPLepxPLuq8z8Sd17. Or email info@gerarda-sullivan-counselling.com or use the contact form and Gerarda will be in touch within 24–48 hours.',
+    book: 'You can book directly online: free 15-min consultation → https://calendar.app.google/1yniNk9xHVaWzoUQ8 | Individual therapy → https://calendar.app.google/Kbg3UNAz7JTk24cW6 | Couples counselling → https://calendar.app.google/tPLepxPLuq8z8Sd17. Or email ' + atob('aW5mb0BnZXJhcmRhLXN1bGxpdmFuLWNvdW5zZWxsaW5nLmNvbQ==') + ' or use the contact form and Gerarda will be in touch within 24–48 hours.',
     confidential: 'Yes — everything shared in sessions is confidential. There are rare legal exceptions (e.g. risk of serious harm) and Gerarda will always try to discuss concerns with you first.',
     online: 'All sessions are currently online via a secure, encrypted video platform. You can join from wherever you feel comfortable — UK and international clients welcome.',
     approach: 'Gerarda uses an integrative approach combining Person-Centred Therapy, CBT, and Attachment Theory — tailored to your unique needs and pace.',
@@ -84,7 +84,7 @@
     if (/approach|method|cbt|person|attach|integrat/.test(q)) return KB.approach;
     if (/service|help|treat|work with|issue|problem/.test(q)) return KB.services;
     if (/privacy|gdpr|data|policy/.test(q)) return KB.privacy;
-    return 'I\'m not able to answer that specifically here. Please email info@gerarda-sullivan-counselling.com or use the contact form on the Contact page and Gerarda will get back to you within 24–48 hours.';
+    return 'I\'m not able to answer that specifically here. Please email ' + atob('aW5mb0BnZXJhcmRhLXN1bGxpdmFuLWNvdW5zZWxsaW5nLmNvbQ==') + ' or use the contact form on the Contact page and Gerarda will get back to you within 24–48 hours.';
   }
 
   function toggleChat() {
