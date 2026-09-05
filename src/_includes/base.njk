@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description }}">
+  {% if keywords %}<meta name="keywords" content="{{ keywords }}">{% endif %}
+  <link rel="canonical" href="https://gerarda-sullivan-counselling.com{{ page.url }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  {% if pageStyles %}<style>{{ pageStyles | safe }}</style>{% endif %}
+  <link rel="icon" type="image/x-icon" href="/favicon.ico?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/klaro@0.7.21/dist/klaro.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/klaro@0.7.21/dist/klaro.min.js"></script>
+  <script src="/js/klaro-config.js"></script>
+  <!-- Google Analytics (GA4) — only runs after the visitor accepts Analytics cookies (see cookie settings) -->
+  <script type="text/plain" data-name="analytics" class="klaro" async src="https://www.googletagmanager.com/gtag/js?id=G-QV83X7DX5H"></script>
+  <script type="text/plain" data-name="analytics" class="klaro">
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QV83X7DX5H');
+  </script>
+  <!-- Open Graph -->
+  <meta property="og:type" content="{{ ogType | default('website') }}">
+  <meta property="og:url" content="https://gerarda-sullivan-counselling.com{{ page.url }}">
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:description" content="{{ description }}">
+  <meta property="og:image" content="https://gerarda-sullivan-counselling.com{{ ogImage | default('/images/dsc_1931.jpg') }}">
+  <meta property="og:site_name" content="Gerarda Sullivan Counselling & Psychotherapy">
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ title }}">
+  <meta name="twitter:description" content="{{ description }}">
+  <meta name="twitter:image" content="https://gerarda-sullivan-counselling.com{{ ogImage | default('/images/dsc_1931.jpg') }}">
+  {% if jsonLd %}<script type="application/ld+json">
+{{ jsonLd | safe }}
+</script>{% endif %}
+</head>
+<body>
+  {% include "nav.njk" %}
+
+  {{ content | safe }}
+
+  {% include "footer.njk" %}
+
+  <script src="/main.js"></script>
+  {% if extraScript %}<script>{{ extraScript | safe }}</script>{% endif %}
+</body>
+</html>

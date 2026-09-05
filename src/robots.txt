@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gerarda-sullivan-counselling.com/sitemap.xml

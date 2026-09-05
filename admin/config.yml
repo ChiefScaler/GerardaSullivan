@@ -1,0 +1,114 @@
+backend:
+  name: github
+  repo: ChiefScaler/GerardaSullivan
+  branch: main
+  # Netlify's own hosted login proxy — this is what lets Gerarda "Log in with GitHub"
+  # below without Az needing to register a separate GitHub OAuth App anywhere.
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+
+# Every save goes through GitHub as a plain git commit — visible in the repo's
+# history, and revertible the same way any other commit is.
+site_url: https://gerarda-sullivan-counselling.com
+display_url: https://gerarda-sullivan-counselling.com
+logo_url: /images/bacp_logo_-_416049.png
+
+media_folder: "src/images"
+public_path: "/images"
+
+collections:
+  - name: "posts"
+    label: "Blog Posts"
+    label_singular: "Blog Post"
+    folder: "src/blog"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    summary: "{{heading}}"
+    sortable_fields: ["date", "heading"]
+    fields:
+      - label: "Layout (do not change)"
+        name: "layout"
+        widget: "hidden"
+        default: "blog-post.njk"
+
+      - label: "Permalink (leave blank for new posts — a web address is created automatically)"
+        name: "permalink"
+        widget: "hidden"
+        required: false
+
+      - label: "Publish Date"
+        name: "date"
+        widget: "datetime"
+        format: "YYYY-MM-DD"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        picker_utc: true
+        hint: "Posts are shown newest first on the Blog page, based on this date."
+
+      - label: "Title (shown at the top of the post)"
+        name: "heading"
+        widget: "string"
+        hint: "The main heading readers see on the post itself."
+
+      - label: "Page Title (for search engines & browser tab)"
+        name: "seoTitle"
+        widget: "string"
+        hint: "Can be the same as the Title above, or a slightly shorter version."
+
+      - label: "Search Engine Description"
+        name: "seoDescription"
+        widget: "text"
+        hint: "1-2 sentences. This is what shows up in Google search results below the title."
+
+      - label: "Blog Listing Teaser"
+        name: "excerpt"
+        widget: "text"
+        hint: "The short preview text shown on the main Blog page card. Can be the same as the Search Engine Description, or written to be more inviting to a browsing reader."
+
+      - label: "Hero Image"
+        name: "heroImage"
+        widget: "image"
+        hint: "The main image shown at the top of the post and on its Blog listing card."
+
+      - label: "Body"
+        name: "body"
+        widget: "markdown"
+        hint: "The main content of the post."
+
+      - label: "Call-to-Action Text"
+        name: "ctaText"
+        widget: "string"
+        required: false
+        hint: "Optional. A short line inviting the reader to take the next step, shown at the end of the post."
+
+      - label: "Call-to-Action Link"
+        name: "ctaLink"
+        widget: "string"
+        required: false
+        hint: "Optional. Where the first button should go, e.g. /how-i-work.html"
+
+      - label: "Call-to-Action Button Text"
+        name: "ctaLinkText"
+        widget: "string"
+        required: false
+        hint: "Optional. e.g. How I work →"
+
+      - label: "Second Call-to-Action Link"
+        name: "ctaLink2"
+        widget: "string"
+        required: false
+        hint: "Optional. e.g. a booking link, https://calendar.app.google/..."
+
+      - label: "Second Call-to-Action Button Text"
+        name: "ctaLinkText2"
+        widget: "string"
+        required: false
+        hint: "Optional. e.g. Book a free consultation"
+
+      - label: "Closing Note"
+        name: "closingNote"
+        widget: "text"
+        required: false
+        hint: "Optional. A small italic note shown at the very end of the post."

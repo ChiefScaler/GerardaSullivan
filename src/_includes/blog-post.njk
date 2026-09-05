@@ -1,0 +1,59 @@
+{% set postBody = content %}
+{% set title = seoTitle + " | Gerarda Sullivan" %}
+{% set description = seoDescription %}
+{% set ogType = "article" %}
+{% set ogImage = heroImage %}
+{% set jsonLd %}
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": {{ heading | dump | safe }},
+  "description": {{ description | dump | safe }},
+  "url": "https://gerarda-sullivan-counselling.com{{ page.url }}",
+  "image": "https://gerarda-sullivan-counselling.com{{ heroImage }}",
+  "author": {
+    "@type": "Person",
+    "name": "Gerarda Sullivan"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Gerarda Sullivan Counselling & Psychotherapy",
+    "url": "https://gerarda-sullivan-counselling.com"
+  }
+}
+{% endset %}
+
+{% set content %}
+  <section class="article-hero">
+    <div class="container">
+      <h1>{{ heading }}</h1>
+      <div class="article-meta">
+        <span>By Gerarda Sullivan</span>
+        <span>&middot; {{ postBody | readingTime }}</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="article-body">
+    <div class="container">
+      <div class="article-prose">
+        <a href="/blog.html" class="back-link">&larr; Back to Blog</a>
+
+        {{ postBody | safe }}
+
+        {% if ctaText %}
+        <div class="dot-divider"><span></span><span></span><span></span></div>
+        <div class="article-cta">
+          <p>{{ ctaText }}</p>
+          <a href="{{ ctaLink | default('/how-i-work.html') }}" class="btn-outline"{% if ctaLink2 %} style="margin-right: 12px;"{% endif %}>{{ ctaLinkText | default('Read about my approach →') }}</a>
+          {% if ctaLink2 %}<a href="{{ ctaLink2 }}"{% if ctaLink2.startsWith('http') %} target="_blank" rel="noopener"{% endif %} class="btn-primary">{{ ctaLinkText2 }}</a>{% endif %}
+        </div>
+        {% endif %}
+
+        {% if closingNote %}<p class="article-note"><em>{{ closingNote }}</em></p>{% endif %}
+      </div>
+    </div>
+  </section>
+{% endset %}
+
+{% include "base.njk" %}
