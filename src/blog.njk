@@ -1,0 +1,49 @@
+---
+permalink: blog.html
+title: "Blog & Resources | Gerarda Sullivan Counselling & Psychotherapy"
+description: "Articles and reflections on mental health, anxiety, relationships, and wellbeing from Gerarda Sullivan, MBACP integrative therapist."
+keywords: "mental health blog, therapy resources, anxiety articles, relationships, wellbeing, counselling blog"
+---
+{% set content %}
+  <section class="page-hero">
+    <div class="container">
+      <p class="section-eyebrow">Resources & Writing</p>
+      <h1>From time to time,<br><em>I write.</em></h1>
+      <p class="hero-sub">Articles and resources you may find supportive. These are offered as accompaniments to the journey, not a substitute for therapy.</p>
+    </div>
+  </section>
+
+  <section class="page-content" style="padding-bottom: 0;">
+    <div class="container">
+      <div class="blog-grid">
+        {% for post in collections.posts %}
+        <a href="{{ post.url }}" class="blog-card">
+          <img src="{{ post.data.heroImage }}" alt="{{ post.data.heading }}" class="blog-card-img">
+          <div class="blog-card-body">
+            <h3>{{ post.data.heading }}</h3>
+            <p>{{ post.data.excerpt }}</p>
+          </div>
+          <div class="blog-card-footer">
+            <span class="blog-date">By Gerarda Sullivan</span>
+            <span class="blog-read">Read →</span>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section style="background: var(--stone); padding: 40px 0;">
+    <div class="container">
+      <div class="how-i-work-cta">
+        <h2>Ready to start the conversation?</h2>
+        <p>A free 15-minute consultation lets you ask questions and see if we're a good fit — no commitment needed.</p>
+        <div class="hiw-cta-btns">
+          <a href="https://calendar.app.google/1yniNk9xHVaWzoUQ8" target="_blank" rel="noopener" class="btn-white-cta">Book a free consultation</a>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endset %}
+
+{% include "base.njk" %}
