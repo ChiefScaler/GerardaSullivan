@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Your Agreement | Gerarda Sullivan Counselling & Psychotherapy</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Beau+Rivage&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/klaro@0.7.21/dist/klaro.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/klaro@0.7.21/dist/klaro.min.js"></script>
+  <script src="js/klaro-config.js"></script>
+  <style>
+    /* ===== Sign-contract page — scoped additions on top of style.css ===== */
+    .sc-header {
+      padding: calc(var(--nav-height) + 48px) 0 32px;
+      background: var(--stone);
+      text-align: center;
+    }
+    .sc-header .section-eyebrow { margin-bottom: 14px; }
+    .sc-header h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.9rem, 4vw, 2.6rem);
+      font-weight: 500;
+      color: var(--forest);
+      line-height: 1.25;
+      margin-bottom: 14px;
+    }
+    .sc-header p { max-width: 500px; margin: 0 auto; color: var(--text-mid); font-size: 0.95rem; }
+
+    .sc-body { background: var(--stone); padding: 0 0 72px; }
+
+    .envelope-strip {
+      max-width: 760px; margin: 0 auto 40px;
+      background: #fff; border: 1.5px solid var(--border); border-radius: var(--radius-lg);
+      padding: 20px 28px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+    }
+    .envelope-field .label { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); margin-bottom: 4px; }
+    .envelope-field .value { font-size: 0.9rem; color: var(--forest); font-weight: 500; }
+    @media (max-width: 640px) { .envelope-strip { grid-template-columns: 1fr; } }
+
+    .doc-wrap { max-width: 760px; margin: 0 auto 32px; }
+    .doc-card { background: #fff; border: 1.5px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow); overflow: hidden; }
+    .doc-card-head { padding: 24px 32px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .doc-card-head h2 { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 500; color: var(--forest); }
+    .doc-progress { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text-light); white-space: nowrap; }
+    .doc-progress.complete { color: var(--sage); }
+    .doc-scroll { max-height: 420px; overflow-y: auto; padding: 8px 32px 32px; }
+    .doc-scroll::-webkit-scrollbar { width: 8px; }
+    .doc-scroll::-webkit-scrollbar-track { background: var(--stone); }
+    .doc-scroll::-webkit-scrollbar-thumb { background: var(--sage-mid, #a8c0a8); border-radius: 4px; }
+    .doc-scroll h3 { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 500; color: var(--forest); margin-top: 28px; margin-bottom: 8px; }
+    .doc-scroll h3:first-of-type { margin-top: 0; }
+    .doc-scroll p { font-size: 0.88rem; color: var(--text-mid); margin-bottom: 10px; }
+    .doc-scroll .fill { color: var(--forest); font-weight: 500; }
+    .doc-scroll .end-marker { text-align: center; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sage-mid, #a8c0a8); padding-top: 20px; margin-top: 12px; border-top: 1px dashed var(--border); }
+    .scroll-nudge { text-align: center; padding: 10px 32px; font-size: 0.78rem; color: var(--sage); background: var(--blue-grey-pale); border-top: 1px solid var(--border); }
+    .scroll-nudge.hidden { display: none; }
+
+    .sign-card { background: #fff; border: 1.5px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow); padding: 32px; transition: opacity var(--transition); }
+    .sign-card.locked { opacity: 0.45; pointer-events: none; }
+    .sign-card h2 { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 500; color: var(--forest); margin-bottom: 4px; }
+    .sign-card > p.lead { font-size: 0.85rem; color: var(--text-mid); margin-bottom: 24px; }
+
+    .signature-box { border: 1.5px dashed var(--sage-mid, #a8c0a8); border-radius: var(--radius); background: var(--blue-grey-pale); padding: 18px 20px; margin-bottom: 20px; min-height: 76px; display: flex; align-items: center; }
+    .signature-preview { font-family: 'Beau Rivage', 'Brush Script MT', cursive; font-size: 2.2rem; color: var(--forest); line-height: 1; }
+    .signature-placeholder { font-size: 0.82rem; color: var(--text-light); font-style: italic; }
+
+    .agree-row { display: flex; align-items: flex-start; gap: 12px; padding: 16px 18px; background: var(--stone); border-radius: var(--radius); margin-bottom: 24px; }
+    .agree-row input { margin-top: 3px; width: 16px; height: 16px; accent-color: var(--sage); flex-shrink: 0; }
+    .agree-row label { font-size: 0.85rem; color: var(--text-mid); line-height: 1.6; }
+
+    .btn-primary:disabled { background: var(--sage-mid, #a8c0a8); cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+
+    .meta-note { margin-top: 18px; font-size: 0.76rem; color: var(--text-light); line-height: 1.6; text-align: center; }
+    .form-error { display: none; background: #fdf2f0; border: 1px solid rgba(190,90,70,0.35); border-radius: var(--radius); padding: 14px 18px; margin-bottom: 18px; color: #9c4432; font-size: 0.85rem; }
+
+    .success-card { display: none; background: #fff; border: 1.5px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow); padding: 56px 48px; text-align: center; }
+    .success-icon { width: 56px; height: 56px; background: rgba(122,158,126,0.14); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+    .success-icon svg { width: 26px; height: 26px; stroke: var(--sage); }
+    .success-card h2 { font-family: var(--font-serif); font-size: 1.7rem; font-weight: 500; color: var(--forest); margin-bottom: 12px; }
+    .success-card p { font-size: 0.92rem; color: var(--text-mid); max-width: 420px; margin: 0 auto 8px; }
+    .success-ref { display: inline-block; margin-top: 20px; padding: 8px 18px; background: var(--blue-grey-pale); border-radius: 40px; font-size: 0.78rem; font-weight: 500; color: var(--forest); font-variant-numeric: tabular-nums; }
+
+    .sc-foot-note { max-width: 760px; margin: 0 auto; text-align: center; font-size: 0.78rem; color: var(--text-light); line-height: 1.7; }
+
+    .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: sc-spin 0.7s linear infinite; vertical-align: -3px; margin-right: 8px; }
+    @keyframes sc-spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 560px) {
+      .doc-card-head, .doc-scroll, .sign-card, .success-card { padding-left: 20px; padding-right: 20px; }
+    }
+  </style>
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gerarda-sullivan-counselling.com/sign-contract.html">
+  <meta property="og:title" content="Sign Your Agreement | Gerarda Sullivan Counselling & Psychotherapy">
+  <meta property="og:site_name" content="Gerarda Sullivan Counselling & Psychotherapy">
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-name">Gerarda Sullivan</span>
+        <span class="logo-sub">Counselling & Psychotherapy</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="how-i-work.html">How I Work</a></li>
+        <li><a href="fees.html">Fees & FAQ</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="https://calendar.app.google/1yniNk9xHVaWzoUQ8" target="_blank" rel="noopener" class="nav-cta">Book a Consultation</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="sc-header">
+    <div class="container">
+      <p class="section-eyebrow">Client Agreement</p>
+      <h1>Your therapy agreement</h1>
+      <p>Please read the agreement below in full, then sign at the bottom of the page. You'll receive a signed copy by email for your records.</p>
+    </div>
+  </header>
+
+  <section class="sc-body">
+    <div class="container">
+
+      <div class="envelope-strip">
+        <div class="envelope-field">
+          <p class="label">Prepared for</p>
+          <p class="value" id="envName">New client</p>
+        </div>
+        <div class="envelope-field">
+          <p class="label">Agreement type</p>
+          <p class="value">Individual Therapy</p>
+        </div>
+        <div class="envelope-field">
+          <p class="label">Reference</p>
+          <p class="value" id="envRef">—</p>
+        </div>
+      </div>
+
+      <div class="doc-wrap">
+        <div class="doc-card">
+          <div class="doc-card-head">
+            <h2>Therapy Service Agreement</h2>
+            <span class="doc-progress" id="scrollProgress">Scroll to read</span>
+          </div>
+          <div class="doc-scroll" id="docScroll">
+            <!--
+              CONTENT NOTE FOR NEXT EDITOR (Az / CMS build):
+              This text is a structural placeholder pending Gerarda's brother's legal
+              review. It is duplicated in netlify/functions/sign-contract.js (CONTRACT_TEXT)
+              so the signed PDF always matches what's shown here — update BOTH files together
+              until the CMS content file replaces both.
+            -->
+            <h3>1. Parties &amp; Scope of Services</h3>
+            <p>This agreement is between <span class="fill">Gerarda Sullivan</span>, BACP-registered counsellor and psychotherapist ("the Therapist"), and the client named above ("the Client"), and covers one-to-one online counselling sessions delivered by video call.</p>
+
+            <h3>2. Sessions, Fees &amp; Payment</h3>
+            <p>Individual sessions are 50 minutes at <span class="fill">£70</span>, and couples sessions are 50 minutes at <span class="fill">£150</span>. Payment is taken at the time of booking via the practice's booking system. Fees are reviewed periodically and the Client will be given <span class="fill">[notice period to be confirmed]</span> of any change.</p>
+
+            <h3>3. Cancellation &amp; Rescheduling</h3>
+            <p>The Client agrees to give at least <span class="fill">[24/48 hours — to confirm]</span> notice to cancel or reschedule a session. Sessions cancelled with less notice, or missed without notice, are charged in full.</p>
+
+            <h3>4. Confidentiality &amp; Its Limits</h3>
+            <p>Everything discussed in session is confidential, in line with the BACP Ethical Framework and UK GDPR. Confidentiality may be broken where the Therapist believes there is a serious risk of harm to the Client or others, where required by law, or during clinical supervision (where the Client is never identified by name).</p>
+
+            <h3>5. Use of AI Tools in Practice Administration</h3>
+            <p><span class="fill">[Clause pending legal review]</span> — this section will set out, in plain language, which administrative tools use AI (for example, appointment scheduling or note-taking support), what they are and are not used for, and that no session content is ever used to train any AI system.</p>
+
+            <h3>6. Data Protection &amp; Records</h3>
+            <p>Client records are stored securely in line with UK GDPR, kept only as long as professionally required, and never shared without consent except where confidentiality is lawfully limited under Section 4 above.</p>
+
+            <h3>7. Ending Therapy</h3>
+            <p>Either party may end the therapeutic relationship at any time. Where possible, the Therapist will offer a final session to support a considered ending.</p>
+
+            <h3>8. Complaints</h3>
+            <p>Any concerns about the service received can be raised directly with the Therapist in the first instance, or with the BACP under its Professional Conduct Procedure.</p>
+
+            <h3>9. Agreement</h3>
+            <p>By typing your name and submitting this form below, you confirm that you have read and understood this agreement in full and agree to be bound by its terms.</p>
+
+            <p class="end-marker">— End of agreement —</p>
+          </div>
+          <div class="scroll-nudge" id="scrollNudge">↓ scroll to the end to unlock signing</div>
+        </div>
+      </div>
+
+      <div class="doc-wrap">
+        <form class="sign-card locked" id="signForm">
+          <h2>Sign to confirm</h2>
+          <p class="lead">Fill in your details below. Typing your name in the signature field counts as your electronic signature on this agreement.</p>
+
+          <div class="form-error" id="formError"></div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label for="fullName">Full legal name</label>
+              <input type="text" id="fullName" name="fullName" autocomplete="name" required>
+            </div>
+            <div class="form-field">
+              <label for="clientEmail">Email address</label>
+              <input type="email" id="clientEmail" name="email" autocomplete="email" required>
+            </div>
+          </div>
+
+          <!-- honeypot: real visitors never see or fill this in -->
+          <div style="position:absolute; left:-9999px;" aria-hidden="true">
+            <label for="companyWebsite">Leave this field blank</label>
+            <input type="text" id="companyWebsite" name="companyWebsite" tabindex="-1" autocomplete="off">
+          </div>
+
+          <label style="display:block; font-size:0.75rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-mid); margin-bottom:7px;">Your signature</label>
+          <div class="signature-box">
+            <span class="signature-placeholder" id="sigPlaceholder">Your typed name will appear here as your signature</span>
+            <span class="signature-preview" id="sigPreview" style="display:none;"></span>
+          </div>
+
+          <div class="agree-row">
+            <input type="checkbox" id="agreeCheck">
+            <label for="agreeCheck">I have read this agreement in full and agree to its terms.</label>
+          </div>
+
+          <button type="submit" class="btn-primary btn-large" id="submitBtn" style="width:100%;" disabled>Sign &amp; submit agreement</button>
+          <p class="meta-note">Signing records your name, email, IP address and the time of signing alongside this exact document text, and emails a signed PDF copy to you and to Gerarda.</p>
+        </form>
+
+        <div class="success-card" id="successCard">
+          <div class="success-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <h2>Signed and sent</h2>
+          <p>Thank you — your agreement has been signed. A copy has been emailed to <strong id="successEmail">you</strong> and to Gerarda for her records.</p>
+          <p>If anything looks wrong, just reply to that email and it'll be sorted before your first session.</p>
+          <span class="success-ref" id="successStamp">—</span>
+        </div>
+      </div>
+
+      <p class="sc-foot-note">Having trouble viewing or signing this agreement? Contact <strong>info@gerarda-sullivan-counselling.com</strong> and a copy can be sent another way.</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-centred">
+      <p class="footer-name">Gerarda Sullivan</p>
+      <p class="footer-tagline">Counselling & Psychotherapy</p>
+      <div class="footer-badges">
+        <a href="https://www.bacp.co.uk/therapists/416049/gerarda-sullivan/amesbury-sp4" target="_blank" rel="noopener" class="footer-bacp-link" aria-label="BACP registered member directory listing">
+          <img src="images/bacp_logo_-_416049.png" alt="BACP Registered Member" class="footer-bacp">
+        </a>
+        <a href="https://www.psychologytoday.com/profile/1723607" class="sx-verified-seal"></a>
+        <script type="text/javascript" src="https://member.psychologytoday.com/verified-seal.js" data-badge="13" data-id="1723607" data-code="aHR0cHM6Ly93d3cucHN5Y2hvbG9neXRvZGF5LmNvbS9hcGkvdmVyaWZpZWQtc2VhbC9zZWFscy8xMy9wcm9maWxlLzE3MjM2MDc/Y2FsbGJhY2s9c3hjYWxsYmFjaw=="></script>
+      </div>
+      <p class="footer-bacp-text">Accredited Register · Professional Standards Authority</p>
+      <nav class="footer-nav">
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="how-i-work.html">How I Work</a>
+        <a href="fees.html">Fees & FAQ</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="#" onclick="klaro.show();return false;">Cookie settings</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p>&#169; 2026 Gerarda Sullivan &middot; All rights reserved &middot; Online Counselling &amp; Psychotherapy</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    (function () {
+      const docScroll = document.getElementById('docScroll');
+      const scrollNudge = document.getElementById('scrollNudge');
+      const scrollProgress = document.getElementById('scrollProgress');
+      const signCard = document.getElementById('signForm');
+      const fullName = document.getElementById('fullName');
+      const clientEmail = document.getElementById('clientEmail');
+      const agreeCheck = document.getElementById('agreeCheck');
+      const submitBtn = document.getElementById('submitBtn');
+      const sigPreview = document.getElementById('sigPreview');
+      const sigPlaceholder = document.getElementById('sigPlaceholder');
+      const envName = document.getElementById('envName');
+      const envRef = document.getElementById('envRef');
+      const formError = document.getElementById('formError');
+      const pageLoadedAt = Date.now();
+
+      // client-facing reference shown before submit; the server assigns the
+      // authoritative reference that actually appears on the signed PDF.
+      envRef.textContent = 'GSC-' + new Date().toISOString().slice(0, 10).replace(/-/g, '');
+
+      let unlocked = false;
+      docScroll.addEventListener('scroll', () => {
+        const atEnd = docScroll.scrollTop + docScroll.clientHeight >= docScroll.scrollHeight - 12;
+        if (atEnd && !unlocked) {
+          unlocked = true;
+          signCard.classList.remove('locked');
+          scrollNudge.classList.add('hidden');
+          scrollProgress.textContent = 'Read in full';
+          scrollProgress.classList.add('complete');
+        }
+      });
+
+      function updateSignature() {
+        const val = fullName.value.trim();
+        if (val) {
+          sigPreview.textContent = val;
+          sigPreview.style.display = 'block';
+          sigPlaceholder.style.display = 'none';
+          envName.textContent = val;
+        } else {
+          sigPreview.style.display = 'none';
+          sigPlaceholder.style.display = 'block';
+          envName.textContent = 'New client';
+        }
+        validate();
+      }
+
+      function validate() {
+        const ok = fullName.value.trim().length > 1 && /\S+@\S+\.\S+/.test(clientEmail.value) && agreeCheck.checked;
+        submitBtn.disabled = !ok;
+      }
+
+      fullName.addEventListener('input', updateSignature);
+      clientEmail.addEventListener('input', validate);
+      agreeCheck.addEventListener('change', validate);
+
+      signForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        formError.style.display = 'none';
+        submitBtn.disabled = true;
+        const originalLabel = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<span class="spinner"></span>Submitting…';
+
+        try {
+          const res = await fetch('/.netlify/functions/sign-contract', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              fullName: fullName.value.trim(),
+              email: clientEmail.value.trim(),
+              companyWebsite: document.getElementById('companyWebsite').value, // honeypot
+              msSinceLoad: Date.now() - pageLoadedAt
+            })
+          });
+          const data = await res.json();
+          if (!res.ok || !data.ok) {
+            throw new Error(data.error || 'Something went wrong submitting your signature.');
+          }
+          document.getElementById('successEmail').textContent = clientEmail.value.trim();
+          document.getElementById('successStamp').textContent = data.reference + ' · signed ' + data.signedAtDisplay;
+          signForm.style.display = 'none';
+          document.getElementById('successCard').style.display = 'block';
+          document.getElementById('successCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } catch (err) {
+          formError.textContent = err.message || 'Something went wrong. Please try again, or email info@gerarda-sullivan-counselling.com.';
+          formError.style.display = 'block';
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalLabel;
+          formError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

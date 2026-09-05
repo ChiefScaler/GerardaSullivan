@@ -1,0 +1,10 @@
+{
+  "name": "gerarda-sullivan-counselling-site",
+  "private": true,
+  "description": "Static site for Gerarda Sullivan Counselling & Psychotherapy, with a Netlify Function powering the contract signing page.",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0",
+    "nodemailer": "^6.9.14",
+    "pdf-lib": "^1.17.1"
+  }
+}
