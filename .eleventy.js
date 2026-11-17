@@ -60,6 +60,16 @@ module.exports = function (eleventyConfig) {
     return `${minutes} min read`;
   });
 
+  // --- Consent agreement text: written from the single shared source so the
+  //     signing page and the signed PDF always use identical wording. ---
+  eleventyConfig.on("eleventy.after", async () => {
+    const fs = require("fs");
+    const path = require("path");
+    const content = require("./netlify/functions/agreement-content.js");
+    fs.mkdirSync("_site", { recursive: true });
+    fs.writeFileSync(path.join("_site", "agreement.json"), JSON.stringify(content));
+  });
+
   return {
     dir: {
       input: "src",

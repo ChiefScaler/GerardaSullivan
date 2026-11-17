@@ -96,6 +96,28 @@
     .success-card p { font-size: 0.92rem; color: var(--text-mid); max-width: 420px; margin: 0 auto 8px; }
     .success-ref { display: inline-block; margin-top: 20px; padding: 8px 18px; background: var(--blue-grey-pale); border-radius: 40px; font-size: 0.78rem; font-weight: 500; color: var(--forest); font-variant-numeric: tabular-nums; }
 
+
+    .who-toggle { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 22px; }
+    .who-opt { flex: 1 1 200px; display: flex; align-items: center; gap: 10px; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: var(--radius); cursor: pointer; font-size: 0.9rem; color: var(--forest); background: #fff; }
+    .who-opt:has(input:checked) { border-color: var(--sage); background: var(--blue-grey-pale); }
+    .who-opt input { accent-color: var(--sage); }
+    .signer-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 8px; }
+    .signer-grid.two { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 760px) { .signer-grid.two { grid-template-columns: 1fr; } }
+    .signer { border: 1.5px solid var(--border); border-radius: var(--radius); padding: 8px 20px 20px; min-width: 0; }
+    .signer[hidden] { display: none; }
+    .signer-title { font-family: var(--font-serif); font-size: 1.1rem; color: var(--forest); padding: 0 8px; }
+    .sub-head { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-light); margin: 18px 0 8px; }
+    .sub-head small, .form-field label small { font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--text-light); }
+    .signer .form-field { margin-bottom: 12px; }
+    .signer .form-field label, #signForm > .form-field label { display: block; font-size: 0.8rem; color: var(--text-mid); margin-bottom: 4px; }
+    .signer input, .signer textarea, #signForm > .form-field textarea { width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: var(--radius); font: inherit; font-size: 0.9rem; background: #fff; color: var(--forest); }
+    .signer input:focus, .signer textarea:focus, #signForm > .form-field textarea:focus { outline: none; border-color: var(--sage); }
+    #signForm > .form-field { margin: 16px 0; }
+    .doc-scroll ul { margin: 0 0 12px 20px; }
+    .doc-scroll li { font-size: 0.88rem; color: var(--text-mid); margin-bottom: 6px; }
+    .doc-scroll .intro { font-style: italic; }
+
     .sc-foot-note { max-width: 760px; margin: 0 auto; text-align: center; font-size: 0.78rem; color: var(--text-light); line-height: 1.7; }
 
     .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: sc-spin 0.7s linear infinite; vertical-align: -3px; margin-right: 8px; }
@@ -149,112 +171,104 @@
         </div>
         <div class="envelope-field">
           <p class="label">Agreement type</p>
-          <p class="value">Individual Therapy</p>
+          <p class="value" id="envType">Individual therapy</p>
         </div>
         <div class="envelope-field">
-          <p class="label">Reference</p>
-          <p class="value" id="envRef">—</p>
+          <p class="label">Therapist</p>
+          <p class="value">Gerarda Sullivan · MBACP 416049</p>
         </div>
       </div>
 
       <div class="doc-wrap">
         <div class="doc-card">
           <div class="doc-card-head">
-            <h2>Therapy Service Agreement</h2>
+            <h2>Informed Consent Agreement</h2>
             <span class="doc-progress" id="scrollProgress">Scroll to read</span>
           </div>
-          <div class="doc-scroll" id="docScroll">
-            <!--
-              CONTENT NOTE FOR NEXT EDITOR (Az / CMS build):
-              This text is a structural placeholder pending Gerarda's brother's legal
-              review. It is duplicated in netlify/functions/sign-contract.js (CONTRACT_TEXT)
-              so the signed PDF always matches what's shown here — update BOTH files together
-              until the CMS content file replaces both.
-            -->
-            <h3>1. Parties &amp; Scope of Services</h3>
-            <p>This agreement is between <span class="fill">Gerarda Sullivan</span>, BACP-registered counsellor and psychotherapist ("the Therapist"), and the client named above ("the Client"), and covers one-to-one online counselling sessions delivered by video call.</p>
-
-            <h3>2. Sessions, Fees &amp; Payment</h3>
-            <p>Individual sessions are 50 minutes at <span class="fill">£70</span>, and couples sessions are 50 minutes at <span class="fill">£150</span>. Payment is taken at the time of booking via the practice's booking system. Fees are reviewed periodically and the Client will be given <span class="fill">[notice period to be confirmed]</span> of any change.</p>
-
-            <h3>3. Cancellation &amp; Rescheduling</h3>
-            <p>The Client agrees to give at least <span class="fill">[24/48 hours — to confirm]</span> notice to cancel or reschedule a session. Sessions cancelled with less notice, or missed without notice, are charged in full.</p>
-
-            <h3>4. Confidentiality &amp; Its Limits</h3>
-            <p>Everything discussed in session is confidential, in line with the BACP Ethical Framework and UK GDPR. Confidentiality may be broken where the Therapist believes there is a serious risk of harm to the Client or others, where required by law, or during clinical supervision (where the Client is never identified by name).</p>
-
-            <h3>5. Use of AI Tools in Practice Administration</h3>
-            <p><span class="fill">[Clause pending legal review]</span> — this section will set out, in plain language, which administrative tools use AI (for example, appointment scheduling or note-taking support), what they are and are not used for, and that no session content is ever used to train any AI system.</p>
-
-            <h3>6. Data Protection &amp; Records</h3>
-            <p>Client records are stored securely in line with UK GDPR, kept only as long as professionally required, and never shared without consent except where confidentiality is lawfully limited under Section 4 above.</p>
-
-            <h3>7. Ending Therapy</h3>
-            <p>Either party may end the therapeutic relationship at any time. Where possible, the Therapist will offer a final session to support a considered ending.</p>
-
-            <h3>8. Complaints</h3>
-            <p>Any concerns about the service received can be raised directly with the Therapist in the first instance, or with the BACP under its Professional Conduct Procedure.</p>
-
-            <h3>9. Agreement</h3>
-            <p>By typing your name and submitting this form below, you confirm that you have read and understood this agreement in full and agree to be bound by its terms.</p>
-
-            <p class="end-marker">— End of agreement —</p>
-          </div>
-          <div class="scroll-nudge" id="scrollNudge">↓ scroll to the end to unlock signing</div>
+          <div class="doc-scroll" id="docScroll"><p>Loading the agreement…</p></div>
+          <div class="scroll-nudge" id="scrollNudge">Scroll to the end of the agreement to unlock the signing form ↓</div>
         </div>
       </div>
 
-      <div class="doc-wrap">
-        <form class="sign-card locked" id="signForm">
-          <h2>Sign to confirm</h2>
-          <p class="lead">Fill in your details below. Typing your name in the signature field counts as your electronic signature on this agreement.</p>
+      <form class="sign-card locked" id="signForm" novalidate>
+        <h2>Sign the agreement</h2>
+        <p class="lead">Complete your details, then sign by typing your full name. Gerarda's signature is already on the agreement.</p>
 
-          <div class="form-error" id="formError"></div>
-
-          <div class="form-row">
-            <div class="form-field">
-              <label for="fullName">Full legal name</label>
-              <input type="text" id="fullName" name="fullName" autocomplete="name" required>
-            </div>
-            <div class="form-field">
-              <label for="clientEmail">Email address</label>
-              <input type="email" id="clientEmail" name="email" autocomplete="email" required>
-            </div>
-          </div>
-
-          <!-- honeypot: real visitors never see or fill this in -->
-          <div style="position:absolute; left:-9999px;" aria-hidden="true">
-            <label for="companyWebsite">Leave this field blank</label>
-            <input type="text" id="companyWebsite" name="companyWebsite" tabindex="-1" autocomplete="off">
-          </div>
-
-          <label style="display:block; font-size:0.75rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-mid); margin-bottom:7px;">Your signature</label>
-          <div class="signature-box">
-            <span class="signature-placeholder" id="sigPlaceholder">Your typed name will appear here as your signature</span>
-            <span class="signature-preview" id="sigPreview" style="display:none;"></span>
-          </div>
-
-          <div class="agree-row">
-            <input type="checkbox" id="agreeCheck">
-            <label for="agreeCheck">I have read this agreement in full and agree to its terms.</label>
-          </div>
-
-          <button type="submit" class="btn-primary btn-large" id="submitBtn" style="width:100%;" disabled>Sign &amp; submit agreement</button>
-          <p class="meta-note">Signing records your name, email, IP address and the time of signing alongside this exact document text, and emails a signed PDF copy to you and to Gerarda.</p>
-        </form>
-
-        <div class="success-card" id="successCard">
-          <div class="success-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 13l4 4L19 7"/></svg>
-          </div>
-          <h2>Signed and sent</h2>
-          <p>Thank you — your agreement has been signed. A copy has been emailed to <strong id="successEmail">you</strong> and to Gerarda for her records.</p>
-          <p>If anything looks wrong, just reply to that email and it'll be sorted before your first session.</p>
-          <span class="success-ref" id="successStamp">—</span>
+        <div class="who-toggle" role="radiogroup" aria-label="Who is signing?">
+          <label class="who-opt"><input type="radio" name="who" value="1" checked> <span>Just me</span></label>
+          <label class="who-opt"><input type="radio" name="who" value="2"> <span>Me and my partner (couples)</span></label>
         </div>
+
+        <div class="form-error" id="formError" role="alert"></div>
+
+        <div class="signer-grid" id="signerGrid">
+          <fieldset class="signer" data-i="0">
+            <legend class="signer-title">Client 1</legend>
+            <div class="form-field"><label for="s0-fullName">Full name *</label><input id="s0-fullName" data-k="fullName" autocomplete="name" required></div>
+            <div class="form-field"><label for="s0-email">Email address * <small>(your own — your signed copy is sent here)</small></label><input id="s0-email" data-k="email" type="email" autocomplete="email" required></div>
+            <div class="form-field"><label for="s0-dob">Date of birth *</label><input id="s0-dob" data-k="dob" type="date" autocomplete="bday" required></div>
+            <div class="form-field"><label for="s0-phone">Phone number *</label><input id="s0-phone" data-k="phone" type="tel" autocomplete="tel" required></div>
+            <div class="form-field"><label for="s0-address">Address *</label><textarea id="s0-address" data-k="address" rows="2" autocomplete="street-address" required></textarea></div>
+            <p class="sub-head">Emergency contact</p>
+            <div class="form-field"><label for="s0-emergencyName">Full name *</label><input id="s0-emergencyName" data-k="emergencyName" required></div>
+            <div class="form-field"><label for="s0-emergencyPhone">Phone number *</label><input id="s0-emergencyPhone" data-k="emergencyPhone" type="tel" required></div>
+            <div class="form-field"><label for="s0-emergencyRelationship">Relationship *</label><input id="s0-emergencyRelationship" data-k="emergencyRelationship" required></div>
+            <p class="sub-head">GP / primary healthcare provider <small>(optional)</small></p>
+            <div class="form-field"><label for="s0-gpName">Name</label><input id="s0-gpName" data-k="gpName"></div>
+            <div class="form-field"><label for="s0-gpAddress">Address</label><input id="s0-gpAddress" data-k="gpAddress"></div>
+            <div class="form-field"><label for="s0-gpPhone">Phone</label><input id="s0-gpPhone" data-k="gpPhone" type="tel"></div>
+            <p class="sub-head">Your signature</p>
+            <div class="form-field"><label for="s0-place">Signing from (town / country) *</label><input id="s0-place" data-k="place" required></div>
+            <div class="signature-box"><span class="signature-preview" id="sig0" style="display:none"></span><span class="signature-placeholder" id="sigPh0">Your signature appears here as you type your full name above</span></div>
+          </fieldset>
+
+          <fieldset class="signer" data-i="1" id="signer2" hidden>
+            <legend class="signer-title">Client 2 (partner)</legend>
+            <div class="form-field"><label for="s1-fullName">Full name *</label><input id="s1-fullName" data-k="fullName" required></div>
+            <div class="form-field"><label for="s1-email">Email address * <small>(their own, different from Client 1)</small></label><input id="s1-email" data-k="email" type="email" required></div>
+            <div class="form-field"><label for="s1-dob">Date of birth *</label><input id="s1-dob" data-k="dob" type="date" required></div>
+            <div class="form-field"><label for="s1-phone">Phone number *</label><input id="s1-phone" data-k="phone" type="tel" required></div>
+            <div class="form-field"><label for="s1-address">Address *</label><textarea id="s1-address" data-k="address" rows="2" required></textarea></div>
+            <p class="sub-head">Emergency contact</p>
+            <div class="form-field"><label for="s1-emergencyName">Full name *</label><input id="s1-emergencyName" data-k="emergencyName" required></div>
+            <div class="form-field"><label for="s1-emergencyPhone">Phone number *</label><input id="s1-emergencyPhone" data-k="emergencyPhone" type="tel" required></div>
+            <div class="form-field"><label for="s1-emergencyRelationship">Relationship *</label><input id="s1-emergencyRelationship" data-k="emergencyRelationship" required></div>
+            <p class="sub-head">GP / primary healthcare provider <small>(optional)</small></p>
+            <div class="form-field"><label for="s1-gpName">Name</label><input id="s1-gpName" data-k="gpName"></div>
+            <div class="form-field"><label for="s1-gpAddress">Address</label><input id="s1-gpAddress" data-k="gpAddress"></div>
+            <div class="form-field"><label for="s1-gpPhone">Phone</label><input id="s1-gpPhone" data-k="gpPhone" type="tel"></div>
+            <p class="sub-head">Their signature</p>
+            <div class="form-field"><label for="s1-place">Signing from (town / country) *</label><input id="s1-place" data-k="place" required></div>
+            <div class="signature-box"><span class="signature-preview" id="sig1" style="display:none"></span><span class="signature-placeholder" id="sigPh1">Their signature appears here as they type their full name above</span></div>
+          </fieldset>
+        </div>
+
+        <div class="form-field"><label for="presentingIssues">Presenting issues <small>(optional — a brief description of what you'd like to work on)</small></label><textarea id="presentingIssues" rows="3"></textarea></div>
+
+        <div class="agree-row">
+          <input type="checkbox" id="agreeCheck">
+          <label for="agreeCheck" id="agreeLabel">I confirm that I have read and understood this Agreement and consent to receive virtual counselling/psychotherapy services under the terms stated.</label>
+        </div>
+
+        <div style="position:absolute;left:-9999px;" aria-hidden="true">
+          <label for="companyWebsite">Company website</label>
+          <input type="text" id="companyWebsite" name="companyWebsite" tabindex="-1" autocomplete="off">
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="submitBtn" disabled>Sign agreement</button>
+        <p class="meta-note">Date signed is recorded automatically. Each person receives their own signed copy by email.</p>
+      </form>
+
+      <div class="success-card" id="successCard">
+        <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h2>Agreement signed</h2>
+        <p id="successLine">A signed copy has been emailed to you.</p>
+        <p>Thank you — you can now book your first session.</p>
+        <span class="success-ref" id="successStamp"></span>
+        <p style="margin-top:22px"><a class="btn btn-primary" href="https://calendar.app.google/1yniNk9xHVaWzoUQ8" target="_blank" rel="noopener">Book a session</a></p>
       </div>
 
-      <p class="sc-foot-note">Having trouble viewing or signing this agreement? Contact <strong>info@gerarda-sullivan-counselling.com</strong> and a copy can be sent another way.</p>
+      <p class="sc-foot-note">Your details are used only to provide your therapy and are handled under UK GDPR — see the <a href="privacy.html">Privacy Policy</a>. Questions? <a href="mailto:info@gerarda-sullivan-counselling.com">info@gerarda-sullivan-counselling.com</a></p>
     </div>
   </section>
 
@@ -289,88 +303,115 @@
   <script src="main.js"></script>
   <script>
     (function () {
-      const docScroll = document.getElementById('docScroll');
-      const scrollNudge = document.getElementById('scrollNudge');
-      const scrollProgress = document.getElementById('scrollProgress');
-      const signCard = document.getElementById('signForm');
-      const fullName = document.getElementById('fullName');
-      const clientEmail = document.getElementById('clientEmail');
-      const agreeCheck = document.getElementById('agreeCheck');
-      const submitBtn = document.getElementById('submitBtn');
-      const sigPreview = document.getElementById('sigPreview');
-      const sigPlaceholder = document.getElementById('sigPlaceholder');
-      const envName = document.getElementById('envName');
-      const envRef = document.getElementById('envRef');
-      const formError = document.getElementById('formError');
+      const $ = (id) => document.getElementById(id);
+      const docScroll = $('docScroll'), scrollNudge = $('scrollNudge'), scrollProgress = $('scrollProgress');
+      const form = $('signForm'), agreeCheck = $('agreeCheck'), submitBtn = $('submitBtn'), formError = $('formError');
+      const signer2 = $('signer2'), grid = $('signerGrid');
       const pageLoadedAt = Date.now();
+      let unlocked = false, couple = false;
 
-      // client-facing reference shown before submit; the server assigns the
-      // authoritative reference that actually appears on the signed PDF.
-      envRef.textContent = 'GSC-' + new Date().toISOString().slice(0, 10).replace(/-/g, '');
+      // ---- Render the agreement from /agreement.json (single source shared with the signed PDF) ----
+      const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+      fetch('/agreement.json', { cache: 'no-cache' }).then((r) => r.json()).then((a) => {
+        let h = '<p class="intro">' + esc(a.INTRO) + '</p>';
+        a.SECTIONS.forEach((s) => {
+          h += '<h3>' + esc(s.heading) + '</h3>';
+          s.blocks.forEach((b) => {
+            if (b.ul) h += '<ul>' + b.ul.map((t) => '<li>' + esc(t) + '</li>').join('') + '</ul>';
+            else h += '<p>' + (b.lead ? '<strong>' + esc(b.lead) + '</strong> ' : '') + esc(b.p) + '</p>';
+          });
+        });
+        h += '<p class="end-marker">End of agreement</p>';
+        docScroll.innerHTML = h;
+        checkScroll();
+      }).catch(() => {
+        docScroll.innerHTML = '<p>Sorry, the agreement could not be loaded. Please refresh the page, or email info@gerarda-sullivan-counselling.com.</p>';
+      });
 
-      let unlocked = false;
-      docScroll.addEventListener('scroll', () => {
+      function checkScroll() {
         const atEnd = docScroll.scrollTop + docScroll.clientHeight >= docScroll.scrollHeight - 12;
-        if (atEnd && !unlocked) {
+        if (atEnd && !unlocked && docScroll.scrollHeight > 200) {
           unlocked = true;
-          signCard.classList.remove('locked');
+          form.classList.remove('locked');
           scrollNudge.classList.add('hidden');
           scrollProgress.textContent = 'Read in full';
           scrollProgress.classList.add('complete');
         }
-      });
+      }
+      docScroll.addEventListener('scroll', checkScroll);
 
-      function updateSignature() {
-        const val = fullName.value.trim();
-        if (val) {
-          sigPreview.textContent = val;
-          sigPreview.style.display = 'block';
-          sigPlaceholder.style.display = 'none';
-          envName.textContent = val;
-        } else {
-          sigPreview.style.display = 'none';
-          sigPlaceholder.style.display = 'block';
-          envName.textContent = 'New client';
-        }
+      // ---- One / two signers ----
+      function setCouple(on) {
+        couple = on;
+        signer2.hidden = !on;
+        grid.classList.toggle('two', on);
+        $('envType').textContent = on ? 'Couples therapy' : 'Individual therapy';
+        $('agreeLabel').textContent = on
+          ? 'We each confirm that we have read and understood this Agreement and consent to receive virtual counselling/psychotherapy services under the terms stated.'
+          : 'I confirm that I have read and understood this Agreement and consent to receive virtual counselling/psychotherapy services under the terms stated.';
+        signer2.querySelectorAll('[data-k]').forEach((el) => { el.required = on && !/^s1-gp/.test(el.id); });
+        updateAll();
+      }
+      document.querySelectorAll('input[name="who"]').forEach((r) => r.addEventListener('change', () => setCouple(r.value === '2' && r.checked)));
+
+      function val(i, k) { const el = $('s' + i + '-' + k); return el ? el.value.trim() : ''; }
+      function updateSig(i) {
+        const name = val(i, 'fullName');
+        $('sig' + i).textContent = name; $('sig' + i).style.display = name ? 'block' : 'none';
+        $('sigPh' + i).style.display = name ? 'none' : 'block';
+      }
+      function updateAll() {
+        updateSig(0); updateSig(1);
+        const n0 = val(0, 'fullName'), n1 = val(1, 'fullName');
+        $('envName').textContent = couple ? ([n0, n1].filter(Boolean).join(' & ') || 'New clients') : (n0 || 'New client');
         validate();
       }
-
-      function validate() {
-        const ok = fullName.value.trim().length > 1 && /\S+@\S+\.\S+/.test(clientEmail.value) && agreeCheck.checked;
-        submitBtn.disabled = !ok;
+      const reqKeys = ['fullName', 'email', 'dob', 'phone', 'address', 'emergencyName', 'emergencyPhone', 'emergencyRelationship', 'place'];
+      const emailOk = (e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+      function signerOk(i) { return reqKeys.every((k) => val(i, k)) && emailOk(val(i, 'email')) && val(i, 'fullName').length > 1; }
+      function problem() {
+        if (!signerOk(0)) return 'Please complete every required field for Client 1.';
+        if (couple) {
+          if (!signerOk(1)) return 'Please complete every required field for Client 2.';
+          if (val(0, 'email').toLowerCase() === val(1, 'email').toLowerCase()) return 'Each person needs their own, different email address.';
+        }
+        if (!agreeCheck.checked) return 'Please tick the box to confirm you agree.';
+        return '';
       }
+      function validate() { submitBtn.disabled = !!problem(); }
+      form.addEventListener('input', updateAll);
+      form.addEventListener('change', updateAll);
 
-      fullName.addEventListener('input', updateSignature);
-      clientEmail.addEventListener('input', validate);
-      agreeCheck.addEventListener('change', validate);
-
-      signForm.addEventListener('submit', async (e) => {
+      form.addEventListener('submit', async (e) => {
         e.preventDefault();
         formError.style.display = 'none';
+        const prob = problem();
+        if (prob) { formError.textContent = prob; formError.style.display = 'block'; return; }
         submitBtn.disabled = true;
         const originalLabel = submitBtn.innerHTML;
         submitBtn.innerHTML = '<span class="spinner"></span>Submitting…';
-
+        const read = (i) => { const o = {}; document.querySelectorAll('#signerGrid .signer[data-i="' + i + '"] [data-k]').forEach((el) => { o[el.dataset.k] = el.value.trim(); }); return o; };
         try {
           const res = await fetch('/.netlify/functions/sign-contract', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              fullName: fullName.value.trim(),
-              email: clientEmail.value.trim(),
-              companyWebsite: document.getElementById('companyWebsite').value, // honeypot
+              signers: couple ? [read(0), read(1)] : [read(0)],
+              presentingIssues: $('presentingIssues').value.trim(),
+              agreed: agreeCheck.checked,
+              companyWebsite: $('companyWebsite').value, // honeypot
               msSinceLoad: Date.now() - pageLoadedAt
             })
           });
           const data = await res.json();
-          if (!res.ok || !data.ok) {
-            throw new Error(data.error || 'Something went wrong submitting your signature.');
-          }
-          document.getElementById('successEmail').textContent = clientEmail.value.trim();
-          document.getElementById('successStamp').textContent = data.reference + ' · signed ' + data.signedAtDisplay;
-          signForm.style.display = 'none';
-          document.getElementById('successCard').style.display = 'block';
-          document.getElementById('successCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          if (!res.ok || !data.ok) throw new Error(data.error || 'Something went wrong submitting your signature.');
+          $('successLine').textContent = couple
+            ? 'A signed copy has been emailed to ' + val(0, 'email') + ' and ' + val(1, 'email') + '.'
+            : 'A signed copy has been emailed to ' + val(0, 'email') + '.';
+          $('successStamp').textContent = data.reference + ' · signed ' + data.signedAtDisplay + (data.test ? ' · TEST' : '');
+          form.style.display = 'none';
+          $('successCard').style.display = 'block';
+          $('successCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
         } catch (err) {
           formError.textContent = err.message || 'Something went wrong. Please try again, or email info@gerarda-sullivan-counselling.com.';
           formError.style.display = 'block';
