@@ -34,7 +34,7 @@
   document.body.appendChild(wrapper);
 
   const KB = {
-    fees: 'Individual therapy is £70 per 50-minute session. Couples counselling is £150 per 50-minute session. A free 15-minute consultation is also available — no obligation, just a chance to ask questions and see if working together feels right.',
+    fees: 'Individual therapy is £80 per 50-minute session. Couples counselling is £150 per 50-minute session. A free 15-minute consultation is also available — no obligation, just a chance to ask questions and see if working together feels right.',
     book: 'You can book directly online: free 15-min consultation → https://calendar.app.google/1yniNk9xHVaWzoUQ8 | Individual therapy → https://calendar.app.google/Kbg3UNAz7JTk24cW6 | Couples counselling → https://calendar.app.google/tPLepxPLuq8z8Sd17. Or email ' + atob('aW5mb0BnZXJhcmRhLXN1bGxpdmFuLWNvdW5zZWxsaW5nLmNvbQ==') + ' or use the contact form and Gerarda will be in touch within 24–48 hours.',
     confidential: 'Yes — everything shared in sessions is confidential. There are rare legal exceptions (e.g. risk of serious harm) and Gerarda will always try to discuss concerns with you first.',
     online: 'All sessions are currently online via a secure, encrypted video platform. You can join from wherever you feel comfortable — UK and international clients welcome.',
@@ -43,7 +43,7 @@
     first: 'The first session is gentle and exploratory — a chance to talk about what brings you to therapy and decide whether working together feels right. No pressure to commit.',
     privacy: 'All personal data is handled in line with UK GDPR. Your information is never sold or used for marketing. See the Privacy Policy page for full details.',
     nervous: 'Feeling nervous is completely normal. You can come exactly as you are — Gerarda will move at your pace, starting wherever you are.',
-    relationships: 'Yes — Gerarda offers relationship and couples therapy at £150 per 50-minute session, as well as individual sessions at £70. She also works with other close connections such as parent and adult child, and siblings.',
+    relationships: 'Yes — Gerarda offers relationship and couples therapy at £150 per 50-minute session, as well as individual sessions at £80. She also works with other close connections such as parent and adult child, and siblings.',
   };
 
   function showChips() {

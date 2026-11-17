@@ -35,7 +35,7 @@ const CONTRACT_TEXT = [
   },
   {
     heading: '2. Sessions, Fees & Payment',
-    body: 'Individual sessions are 50 minutes at £70, and couples sessions are 50 minutes at £150. Payment is taken at the time of booking via the practice’s booking system. Fees are reviewed periodically and the Client will be given [notice period to be confirmed] of any change.'
+    body: 'Individual sessions are 50 minutes at £80, and couples sessions are 50 minutes at £150. Payment is taken at the time of booking via the practice’s booking system. Fees are reviewed periodically and the Client will be given [notice period to be confirmed] of any change.'
   },
   {
     heading: '3. Cancellation & Rescheduling',
