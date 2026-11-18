@@ -35,7 +35,8 @@
   function fieldHtml(i, f) {
     var id = 'c' + i + '_' + f[0];
     var attrs = ' id="' + id + '" data-i="' + i + '" data-k="' + f[0] + '"' + (f[3] ? ' autocomplete="' + f[3] + '"' : '');
-    return f[2] === 'textarea' ? '<textarea' + attrs + ' rows="2"></textarea>' : '<input' + attrs + ' type="' + f[2] + '">';
+    var rq = (REQ1.indexOf(f[0]) > -1 || REQ2.indexOf(f[0]) > -1) ? ' class="req"' : '';
+    return f[2] === 'textarea' ? '<textarea' + attrs + rq + ' rows="2"></textarea>' : '<input' + attrs + rq + ' type="' + f[2] + '">';
   }
   function gridHtml(fields, req) {
     var h = '<div class="cgrid" style="grid-template-columns:200px 1fr 1fr"><span class="ch empty"></span><span class="ch">Client 1</span><span class="ch c2" hidden>Client 2 (couples only)</span>';
@@ -74,12 +75,12 @@
 
   function sigCardHtml(i) {
     return '<fieldset class="signer" data-i="' + i + '"><legend class="signer-title">CLIENT ' + (i + 1) + (i === 1 ? ' (couples only)' : '') + '</legend>' +
-      '<div class="sigfield"><label for="p' + i + '_name">Full name (printed) *</label><input id="p' + i + '_name" data-i="' + i + '"></div>' +
+      '<div class="sigfield"><label for="p' + i + '_name">Full name (printed) *</label><input class="req" id="p' + i + '_name" data-i="' + i + '"></div>' +
       '<div class="sigfield"><label>Signature * <small>(type or draw)</small></label>' +
       '<div class="sig-tabs"><button type="button" class="on" data-tab="type" data-i="' + i + '">Type</button><button type="button" data-tab="draw" data-i="' + i + '">Draw</button></div>' +
-      '<div id="p' + i + '_type"><input id="p' + i + '_sigtext" placeholder="Type your full name" data-i="' + i + '"><div class="signature-box" style="margin-top:10px"><span class="signature-preview" id="p' + i + '_prev"></span><span class="signature-placeholder" id="p' + i + '_ph">Your signature appears here</span></div></div>' +
+      '<div id="p' + i + '_type"><input class="req" id="p' + i + '_sigtext" placeholder="Type your full name" data-i="' + i + '"><div class="signature-box" style="margin-top:10px"><span class="signature-preview" id="p' + i + '_prev"></span><span class="signature-placeholder" id="p' + i + '_ph">Your signature appears here</span></div></div>' +
       '<div id="p' + i + '_draw" hidden><canvas class="sigpad" id="p' + i + '_pad" width="640" height="260"></canvas><button type="button" class="sig-clear" data-clear="' + i + '">Clear</button></div></div>' +
-      '<div class="sigfield"><label for="p' + i + '_place">Signed in (town / country) *</label><input id="p' + i + '_place"></div>' +
+      '<div class="sigfield"><label for="p' + i + '_place">Signed in (town / country) *</label><input class="req" id="p' + i + '_place"></div>' +
       '<div class="sigfield"><label>Date signed</label><input value="' + esc(todayStr()) + '" readonly></div>' +
       '<div class="agree-row"><input type="checkbox" id="p' + i + '_agree"><label for="p' + i + '_agree">I have read this agreement in full and agree to its terms</label></div></fieldset>';
   }
@@ -135,10 +136,51 @@
     }
     return '';
   }
+  /* ---------- highlighting ---------- */
+  function elBad(el) {
+    if (!el.closest('[hidden]') && !el.disabled) {
+      var id = el.id, v = el.value.trim();
+      if (/_email$/.test(id)) {
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return true;
+        if (id === 'c1_email' && isCouple() && v.toLowerCase() === val('c0_email').toLowerCase()) return true;
+        return false;
+      }
+      if (/_sigtext$/.test(id)) { var i = +id.charAt(1); return mode[i] === 'type' && v.length < 2; }
+      return !v;
+    }
+    return false;
+  }
+  function sigBad(i) { return mode[i] === 'draw' && !inked[i]; }
+  function badEls() {
+    var out = [];
+    if (pay === 'insurer' || pay === 'referral') {
+      document.querySelectorAll(pay === 'insurer' ? '#payInsurer [data-pay]' : '#payReferral [data-pay]').forEach(function (el) { if (!el.value.trim()) out.push(el); });
+    }
+    var n = isCouple() ? 2 : 1;
+    for (var i = 0; i < n; i++) {
+      document.querySelectorAll('#docScroll .req[id^="c' + i + '_"]').forEach(function (el) { if (elBad(el)) out.push(el); });
+      ['name', 'sigtext', 'place'].forEach(function (k) { var el = $('p' + i + '_' + k); if (el && elBad(el)) out.push(el); });
+      if (sigBad(i)) out.push($('p' + i + '_pad'));
+      if (!$('p' + i + '_agree').checked) out.push($('p' + i + '_agree').parentNode);
+    }
+    return out;
+  }
+  function paint() {
+    document.querySelectorAll('.req').forEach(function (el) {
+      var bad = elBad(el);
+      el.classList.toggle('ok', !bad && !el.closest('[hidden]'));
+      if (!bad) el.classList.remove('invalid');
+    });
+    document.querySelectorAll('.agree-row, .sigpad').forEach(function (el) {
+      var i = +(el.id ? el.id.charAt(1) : el.querySelector('input').id.charAt(1));
+      var bad = el.classList.contains('sigpad') ? sigBad(i) : !el.querySelector('input').checked;
+      if (!bad) el.classList.remove('invalid');
+    });
+  }
   function validate() {
     if (!$('submitBtn')) return;
+    paint();
     var p = problem();
-    $('submitBtn').disabled = !!p;
     $('submitNote').textContent = p || 'Everything is complete. You can sign now.';
   }
 
@@ -316,7 +358,19 @@
   $('signForm').addEventListener('submit', async function (e) {
     e.preventDefault();
     var p = problem(); $('formError').style.display = 'none';
-    if (p) { $('formError').textContent = p; $('formError').style.display = 'block'; return; }
+    if (p) {
+      var bad = badEls();
+      document.querySelectorAll('.invalid').forEach(function (el) { el.classList.remove('invalid'); });
+      bad.forEach(function (el) { el.classList.add('invalid'); });
+      $('formError').textContent = bad.length ? p + ' Missing items are highlighted in red (' + bad.length + ').' : p;
+      $('formError').style.display = 'block';
+      if (bad.length) {
+        var first = bad[0];
+        first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (first.focus && /INPUT|TEXTAREA/.test(first.tagName)) setTimeout(function () { first.focus({ preventScroll: true }); }, 450);
+      }
+      return;
+    }
     var btn = $('submitBtn'), label = btn.innerHTML; btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>Preparing your copy…';
     try {
       var bytes = await buildPdf(collect());

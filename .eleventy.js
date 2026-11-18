@@ -22,6 +22,7 @@ module.exports = function (eleventyConfig) {
     "services.html",
     "how-i-work.html",
     "fees.html",
+    "faq.html",
     "contact.html",
     "privacy.html",
     "sign-contract.html",

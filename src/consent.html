@@ -146,6 +146,15 @@
     .cgrid .rl { font-size: 0.85rem; font-weight: 600; color: var(--forest); padding-top: 10px; }
     .cgrid input, .cgrid textarea { width: 100%; padding: 9px 10px; border: 1.5px solid var(--border); border-radius: var(--radius); font: inherit; font-size: 0.88rem; background: #fff; color: var(--forest); }
     .cgrid .c2[hidden] { display: none; }
+    /* fields the client must complete: warm amber until filled, red if missed */
+    .req { background: #fff3cf !important; border: 2px solid #c9951c !important; }
+    .req.ok { background: #fff !important; border: 2px solid var(--sage) !important; }
+    .req.invalid, .agree-row.invalid, .sigpad.invalid { background: #fde7e7 !important; border: 2px solid #c0392b !important; box-shadow: 0 0 0 3px rgba(192,57,43,0.18); }
+    .agree-row.invalid { border-radius: var(--radius); }
+    .fill-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; padding: 10px 32px; font-size: 0.8rem; color: var(--text-mid); background: var(--stone); border-bottom: 1px solid var(--border); }
+    .fill-legend i { display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: -2px; margin-right: 6px; }
+    .fill-legend .a { background: #fff3cf; border: 2px solid #c9951c; }
+    .fill-legend .g { background: #fff; border: 2px solid var(--sage); }
     @media (max-width: 640px) { .cgrid { grid-template-columns: 1fr !important; } .cgrid .rl { padding-top: 6px; } .cgrid .ch.empty { display: none; } }
     .facts { display: grid; grid-template-columns: 220px 1fr; gap: 6px 16px; margin: 6px 0 14px; font-size: 0.88rem; color: var(--text-mid); }
     .facts b { color: var(--forest); font-weight: 600; }
@@ -191,7 +200,8 @@
         <li><a href="about.html">About</a></li>
         <li><a href="services.html">Services</a></li>
         <li><a href="how-i-work.html">How I Work</a></li>
-        <li><a href="fees.html">Fees & FAQ</a></li>
+        <li><a href="fees.html">Fees</a></li>
+        <li><a href="faq.html">FAQ</a></li>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="https://calendar.app.google/1yniNk9xHVaWzoUQ8" target="_blank" rel="noopener" class="nav-cta">Book a Consultation</a></li>
       </ul>
@@ -227,16 +237,16 @@
           <label class="choice"><input type="radio" name="pay" value="referral"><span><strong>An organisation or employer has referred me</strong></span></label>
         </div>
         <div class="pay-fields" id="payInsurer" hidden>
-          <div class="form-field"><label for="ins_insurer">Insurer name *</label><input id="ins_insurer" data-pay="insurer"></div>
-          <div class="form-field"><label for="ins_holder">Policy holder name *</label><input id="ins_holder" data-pay="insurer"></div>
-          <div class="form-field"><label for="ins_member">Membership / policy number *</label><input id="ins_member" data-pay="insurer"></div>
-          <div class="form-field"><label for="ins_auth">Authorisation (pre-authorisation) number *</label><input id="ins_auth" data-pay="insurer"></div>
+          <div class="form-field"><label for="ins_insurer">Insurer name *</label><input class="req" id="ins_insurer" data-pay="insurer"></div>
+          <div class="form-field"><label for="ins_holder">Policy holder name *</label><input class="req" id="ins_holder" data-pay="insurer"></div>
+          <div class="form-field"><label for="ins_member">Membership / policy number *</label><input class="req" id="ins_member" data-pay="insurer"></div>
+          <div class="form-field"><label for="ins_auth">Authorisation (pre-authorisation) number *</label><input class="req" id="ins_auth" data-pay="insurer"></div>
           <div class="form-field"><label for="ins_sessions">Number of sessions authorised <small>(optional)</small></label><input id="ins_sessions" inputmode="numeric"></div>
         </div>
         <div class="pay-fields" id="payReferral" hidden>
-          <div class="form-field"><label for="ref_org">Organisation name *</label><input id="ref_org" data-pay="referral"></div>
-          <div class="form-field"><label for="ref_contact">Contact name *</label><input id="ref_contact" data-pay="referral"></div>
-          <div class="form-field"><label for="ref_details">Contact email or phone *</label><input id="ref_details" data-pay="referral"></div>
+          <div class="form-field"><label for="ref_org">Organisation name *</label><input class="req" id="ref_org" data-pay="referral"></div>
+          <div class="form-field"><label for="ref_contact">Contact name *</label><input class="req" id="ref_contact" data-pay="referral"></div>
+          <div class="form-field"><label for="ref_details">Contact email or phone *</label><input class="req" id="ref_details" data-pay="referral"></div>
           <div class="form-field"><label for="ref_ref">Reference number <small>(optional)</small></label><input id="ref_ref"></div>
         </div>
       </div>
@@ -248,6 +258,7 @@
               <h2>Client &amp; Therapist Informed Consent Agreement</h2>
               <span class="doc-progress" id="scrollProgress">Scroll to read</span>
             </div>
+            <p class="fill-legend"><span><i class="a"></i>Amber box = you need to fill this in</span><span><i class="g"></i>Green outline = done</span></p>
             <div class="doc-scroll tall" id="docScroll"><p>Loading the agreement&hellip;</p></div>
             <div class="scroll-nudge" id="scrollNudge">Scroll to the end of the agreement to unlock signing &darr;</div>
           </div>
@@ -265,7 +276,7 @@
             <p class="therapist-meta">Gerarda Sullivan &middot; Registered Member MBACP 416049<br>Already signed &middot; <span id="therapistDate"></span></p>
           </fieldset>
 
-          <button type="submit" class="btn btn-primary" id="submitBtn" disabled>Sign agreement</button>
+          <button type="submit" class="btn btn-primary" id="submitBtn">Sign agreement</button>
           <p class="meta-note" id="submitNote">Complete every required field to sign.</p>
         </form>
       </div>
@@ -298,7 +309,8 @@
         <a href="about.html">About</a>
         <a href="services.html">Services</a>
         <a href="how-i-work.html">How I Work</a>
-        <a href="fees.html">Fees & FAQ</a>
+        <a href="fees.html">Fees</a>
+        <a href="faq.html">FAQ</a>
         <a href="blog.html">Blog</a>
         <a href="contact.html">Contact</a>
         <a href="privacy.html">Privacy Policy</a>
