@@ -1,4 +1,6 @@
-/* /consent — DEMO flow. Runs entirely in the browser: nothing is sent or stored.
+/* /consent — consent + booking flow. The signed PDF is built in the browser, then posted once to
+   /.netlify/functions/consent-submit, which emails each signer (and Gerarda, on the live site) their copy.
+   Nothing is stored on the server except a hashed 'already signed' record.
    The only network request is the static /agreement.json (the agreement text). */
 (function () {
   'use strict';
@@ -8,6 +10,8 @@
     couples: 'https://calendar.app.google/d61wu3Y1FqCVvhwY7'
   };
   var plan = '', pay = '', unlocked = false, agreement = null, pdfUrl = null;
+  var IS_LIVE = /(^|\.)gerarda-sullivan-counselling\.com$/.test(location.hostname);
+  var loadedAt = Date.now(), emailsSent = [];
 
   var S1 = [
     ['fullName', 'Full name', 'text', 'name'],
@@ -207,7 +211,7 @@
     var font = await doc.embedFont(L.StandardFonts.Helvetica), bold = await doc.embedFont(L.StandardFonts.HelveticaBold), script = await doc.embedFont(L.StandardFonts.TimesRomanItalic);
     var rgb = L.rgb, FOREST = rgb(0.1, 0.23, 0.16), SAGE = rgb(0.29, 0.45, 0.32), TEXT = rgb(0.16, 0.2, 0.1), MUTED = rgb(0.54, 0.52, 0.44), LINE = rgb(0.68, 0.75, 0.68);
     var M = 56, W = 595.28, H = 841.89, CW = W - 2 * M, page, y;
-    function addPage() { page = doc.addPage([W, H]); y = H - M; page.drawText('DEMO COPY - not a real agreement', { x: M, y: H - 28, size: 8, font: bold, color: rgb(0.7, 0.2, 0.2) }); }
+    function addPage() { page = doc.addPage([W, H]); y = H - M; if (!IS_LIVE) page.drawText('TEST COPY - not a real agreement', { x: M, y: H - 28, size: 8, font: bold, color: rgb(0.7, 0.2, 0.2) }); }
     addPage();
     function need(s) { if (y - s < M) addPage(); }
     function wrap(t, f, size, w) {
@@ -307,10 +311,12 @@
       h = '<a class="btn btn-primary" id="bookBtn" href="' + (couples ? LINKS.couples : LINKS.individual) + '" target="_blank" rel="noopener">' +
         (couples ? 'Book your first couples session (&pound;150)' : 'Book your first session (&pound;80)') + '</a>' +
         '<p class="note">Keep your confirmation email: you\'ll use this same link for every future session.</p>' +
-        '<p class="demo-note">Demo: please don\'t complete a booking.</p>';
+        (IS_LIVE ? '' : '<p class="demo-note">Test version: please don\'t complete a booking.</p>');
     } else {
       h = '<p class="note" id="waitMsg">Thank you. Gerarda will check your ' + (pay === 'insurer' ? 'insurance' : 'referral') + ' details and email you your personal booking link within 2 working days. You won\'t be charged at booking; Gerarda invoices your ' + (pay === 'insurer' ? 'insurer' : 'organisation') + ' directly.</p>';
     }
+    var to = emailsSent.join(' and ');
+    h = '<p class="note">We\'ve emailed a signed copy to ' + esc(to) + '. If you can\'t see it, check your junk folder.</p>' + h;
     $('nextSteps').innerHTML = h;
     $('agreementWrap').hidden = true; $('step1').hidden = true; $('step2').hidden = true;
     $('successCard').style.display = 'block';
@@ -371,24 +377,40 @@
       }
       return;
     }
-    var btn = $('submitBtn'), label = btn.innerHTML; btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>Preparing your copy…';
+    var btn = $('submitBtn'), label = btn.innerHTML; btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>Signing and emailing your copy…';
     try {
-      var bytes = await buildPdf(collect());
+      var data = collect();
+      var bytes = await buildPdf(data);
       if (pdfUrl) URL.revokeObjectURL(pdfUrl);
       pdfUrl = URL.createObjectURL(new Blob([bytes], { type: 'application/pdf' }));
+      var bin = '', CH = 0x8000;
+      for (var o = 0; o < bytes.length; o += CH) bin += String.fromCharCode.apply(null, bytes.subarray(o, o + CH));
+      var body = {
+        version: agreement.VERSION, plan: plan, pay: pay,
+        clients: data.clients.map(function (c) { return { fullName: c.fullName, email: c.email }; }),
+        companyWebsite: ($('companyWebsite') || {}).value || '', msSinceLoad: Date.now() - loadedAt,
+        pdfBase64: btoa(bin)
+      };
+      var res = await fetch('/.netlify/functions/consent-submit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      var out = {}; try { out = await res.json(); } catch (e) {}
+      if (!res.ok || !out.ok) throw new Error(out.error || 'send failed');
+      emailsSent = body.clients.map(function (c) { return c.email; });
       showThanks();
     } catch (err) {
-      $('formError').textContent = 'Sorry, something went wrong preparing your copy. Please try again.'; $('formError').style.display = 'block';
+      $('formError').textContent = (err && err.message && err.message !== 'send failed' && !/Failed to fetch|NetworkError|Load failed/i.test(err.message)) ? err.message : 'Sorry, something went wrong signing your agreement. Please check your connection and try again.';
+      $('formError').style.display = 'block';
       btn.innerHTML = label; validate();
     }
   });
+
   $('downloadBtn').addEventListener('click', function () {
     if (!pdfUrl) return;
-    var a = document.createElement('a'); a.href = pdfUrl; a.download = 'Signed-consent-agreement-DEMO.pdf'; document.body.appendChild(a); a.click(); a.remove();
+    var a = document.createElement('a'); a.href = pdfUrl; a.download = 'Signed-consent-agreement.pdf'; document.body.appendChild(a); a.click(); a.remove();
   });
 
   $('therapistDate').textContent = todayStr();
   buildSigCards();
+  if (IS_LIVE && $('testBanner')) $('testBanner').style.display = 'none';
   fetch('/agreement.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(renderAgreement).catch(function () {
     $('docScroll').innerHTML = '<p>Sorry, the agreement could not be loaded. Please refresh the page.</p>';
   });
