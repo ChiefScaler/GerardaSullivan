@@ -318,6 +318,7 @@
           h += '<h3>' + esc(s.heading) + '</h3>';
           s.blocks.forEach((b) => {
             if (b.ul) h += '<ul>' + b.ul.map((t) => '<li>' + esc(t) + '</li>').join('') + '</ul>';
+            else if (b.table) h += b.table.map((r) => '<p><strong>' + esc(r[0]) + '</strong> ' + esc(r[1]) + '</p>').join('');
             else h += '<p>' + (b.lead ? '<strong>' + esc(b.lead) + '</strong> ' : '') + esc(b.p) + '</p>';
           });
         });

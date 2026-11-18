@@ -145,11 +145,17 @@ async function buildPdf({ signers, shared, ip, userAgent, reference, signedAt, i
   y -= 8;
   const sec3 = SECTIONS.find((x) => x.heading.startsWith('3.'));
   para(sec3.heading, { size: 11.5, f: bold, color: FOREST, gap: 16 });
-  para(sec3.blocks[0].p, { size: 10, gap: 13 });
+  sec3.blocks.forEach(renderBlock);
   y -= 8;
   para('4. Presenting issues', { size: 11.5, f: bold, color: FOREST, gap: 16 });
   para(shared.presentingIssues || '(none given)', { size: 10, gap: 13 });
   y -= 10;
+
+  function renderBlock(b) {
+    if (b.ul) b.ul.forEach((t) => bullet(t));
+    else if (b.table) b.table.forEach(([k, v]) => para(v, { lead: k }));
+    else para(b.p, { lead: b.lead });
+  }
 
   // Agreement body
   for (const s of SECTIONS) {
@@ -157,8 +163,7 @@ async function buildPdf({ signers, shared, ip, userAgent, reference, signedAt, i
     need(44);
     para(s.heading, { size: 11.5, f: bold, color: FOREST, gap: 16 });
     for (const b of s.blocks) {
-      if (b.ul) b.ul.forEach((t) => bullet(t));
-      else para(b.p, { lead: b.lead });
+      renderBlock(b);
       y -= 2;
     }
     y -= 8;

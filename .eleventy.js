@@ -25,6 +25,7 @@ module.exports = function (eleventyConfig) {
     "contact.html",
     "privacy.html",
     "sign-contract.html",
+    "consent.html",
     "thank-you.html",
   ];
   staticPages.forEach((page) => eleventyConfig.addPassthroughCopy(`src/${page}`));

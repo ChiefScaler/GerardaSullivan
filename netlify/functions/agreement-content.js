@@ -9,17 +9,23 @@
 //
 // Block types:  { lead?, p }  paragraph (optional bold lead-in)
 //               { ul: [...] } bullet list
+//               { table: [[label, value], ...] } two-column facts table
 
 const VERSION = 'consent-v2-2026-11-draft';
 
 const INTRO =
-  'This Consent Agreement sets out the terms on which I, the Therapist, provide online counselling and psychotherapy services to you, the Client. It reflects UK law and the ethical requirements of the British Association for Counselling and Psychotherapy (BACP). Where two people attend together (for example, couples therapy), each is a Client and each signs separately.';
+  'This Consent Agreement sets out the terms on which I, the Therapist, provide online counselling and psychotherapy services to you, the Client. It reflects UK law and the ethical requirements of the British Association for Counselling and Psychotherapy (BACP). Where two people attend together (for example, couples therapy), each is a Client and each completes and signs their own column below.';
 
 const SECTIONS = [
   {
     heading: '3. Therapist information',
     blocks: [
-      { p: 'Gerarda Sullivan · BACP registration no. 416049 (Registered Member MBACP) · Phone (+44) 7741 756743 · info@gerarda-sullivan-counselling.com' }
+      { table: [
+        ['Name', 'Gerarda Sullivan'],
+        ['BACP registration no.', '416049 (Registered Member MBACP)'],
+        ['Phone number', '(+44) 7741 756743'],
+        ['Email address', 'info@gerarda-sullivan-counselling.com']
+      ] }
     ]
   },
   {
@@ -38,7 +44,7 @@ const SECTIONS = [
     heading: '6. Online counselling explained',
     blocks: [
       { ul: [
-        'Sessions with the Client will take place via Google Meet, an encrypted video platform. Appropriate security and data protection measures are maintained in accordance with applicable GDPR requirements.',
+        'Sessions with the Client will take place via GOOGLE MEET, an encrypted video platform. Appropriate security and data protection measures are maintained in accordance with applicable GDPR requirements.',
         'I offer online counselling and psychotherapy services, generally referred to as teletherapy via secure internet technology. This can include consultation, treatment, transfer of medical data, emails, telephone conversations and/or education using interactive audio, video, or data communications. Teletherapy has the same purpose or intention as counselling sessions conducted face-to-face and costs the same as face-to-face sessions. Research indicates positive efficacy for virtual counselling sessions. However, due to the nature of the technology used, teletherapy may be experienced differently than face-to-face treatment sessions.',
         'While security measures are in place, no online platform can be guaranteed 100% secure. You are encouraged to ensure privacy on your end (e.g., private room, secure internet, use of headphones). You are also responsible for a stable and secure connection on your end.',
         'On occasion, technical failures may interrupt service. In the event of a disconnection, I will attempt to reconnect for up to 10 minutes. If reconnection is not possible during a particular session, I will contact you by phone on the number you have provided to discuss arranging a new appointment.',
@@ -49,7 +55,13 @@ const SECTIONS = [
   {
     heading: '7. Session structure',
     blocks: [
-      { p: 'Sessions are 50 minutes long. Frequency and session times are agreed between us. If you are late in joining any session, such session will still end at the agreed time.' }
+      { table: [
+        ['Session length:', '50 minutes'],
+        ['Frequency', 'Agreed with Gerarda at your first session'],
+        ['Agreed number of sessions (if fixed)', 'Agreed with Gerarda at your first session'],
+        ['Session times', 'Agreed with Gerarda at your first session']
+      ] },
+      { p: 'If you are late in joining any session, such session will still end at the agreed time.' }
     ]
   },
   {
