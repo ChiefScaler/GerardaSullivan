@@ -11,10 +11,10 @@
 //               { ul: [...] } bullet list
 //               { table: [[label, value], ...] } two-column facts table
 
-const VERSION = 'consent-v2-2026-11-draft';
+const VERSION = 'consent-v2-2026-11-19-draft';
 
 const INTRO =
-  'This Consent Agreement sets out the terms on which I, the Therapist, provide online counselling and psychotherapy services to you, the Client. It reflects UK law and the ethical requirements of the British Association for Counselling and Psychotherapy (BACP). Where two people attend together (for example, couples therapy), each is a Client and each completes and signs their own column below.';
+  'This Consent Agreement sets out the terms on which I, the Therapist, provide online counselling and psychotherapy services to you, the Client. It reflects UK law and the ethical requirements of the British Association for Counselling and Psychotherapy (BACP). Where two people attend together (for example, couples therapy), each is a Client and each completes and signs their own column below. I work only with adults: by signing, each Client confirms they are 18 years of age or over.';
 
 const SECTIONS = [
   {
@@ -76,7 +76,7 @@ const SECTIONS = [
         'Lack of mental capacity requiring intervention to protect your welfare.'
       ] },
       { p: 'Where possible, I will discuss this with you before taking any action. In circumstances where I have serious concerns about your immediate safety, I am permitted to contact your nominated Emergency Contact person or GP / Primary Healthcare Provider using the details you have provided in this Consent Agreement.' },
-      { lead: 'Couples and joint sessions:', p: 'information shared by either Client in a joint session is held within the therapy and is not kept confidential from the other Client.' }
+      { lead: 'Couples and joint sessions:', p: 'everything either Client shares with me, including in any individual session, is kept confidential and is not disclosed to the other Client, subject to the exceptions above.' }
     ]
   },
   {

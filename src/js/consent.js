@@ -280,9 +280,14 @@
       yy -= 6; page.drawLine({ start: { x: x, y: yy }, end: { x: x + sw - 20, y: yy }, thickness: 0.5, color: LINE }); yy -= 12;
       ['Full name: ' + c.printed, 'Signed in: ' + c.place, 'Date signed: ' + data.date].forEach(function (t) { page.drawText(safe(t), { x: x, y: yy, size: 8.5, font: font, color: TEXT, maxWidth: sw - 14 }); yy -= 12; });
     }
-    y = top - 56 - 6 - 12 - 36 - 24; need(100);
-    page.drawText('THERAPIST', { x: M, y: y, size: 8.5, font: bold, color: SAGE }); y -= 30;
-    page.drawText('Gerarda Sullivan', { x: M, y: y, size: 22, font: script, color: FOREST }); y -= 6;
+    y = top - 56 - 6 - 12 - 36 - 24; need(165);
+    page.drawText('THERAPIST', { x: M, y: y, size: 8.5, font: bold, color: SAGE }); y -= 72;
+    try {
+      var sigBytes = await (await fetch('/images/gerarda-signature.png')).arrayBuffer();
+      var sigPng = await doc.embedPng(sigBytes), sw0 = 150, sh0 = sw0 * sigPng.height / sigPng.width;
+      page.drawImage(sigPng, { x: M, y: y - 4, width: sw0, height: sh0 });
+    } catch (e) { page.drawText('Gerarda Sullivan', { x: M, y: y, size: 22, font: script, color: FOREST }); }
+    y -= 6;
     page.drawLine({ start: { x: M, y: y }, end: { x: M + 200, y: y }, thickness: 0.5, color: LINE }); y -= 12;
     page.drawText('Gerarda Sullivan - Registered Member MBACP 416049', { x: M, y: y, size: 8.5, font: font, color: TEXT }); y -= 12;
     page.drawText('Date: ' + data.date, { x: M, y: y, size: 8.5, font: font, color: TEXT });
