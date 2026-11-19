@@ -255,7 +255,15 @@
     function colHead() { if (n === 2) { page.drawText('Client 1', { x: M + 130, y: y, size: 8.5, font: bold, color: SAGE }); page.drawText('Client 2', { x: M + 130 + colW, y: y, size: 8.5, font: bold, color: SAGE }); y -= 14; } }
     var col = function (k) { return data.clients.map(function (c) { return c[k]; }); };
 
-    para('Gerarda Sullivan Counselling & Psychotherapy', { size: 10, color: SAGE, gap: 16 });
+    var tm = await doc.embedFont(L.StandardFonts.TimesRoman);
+    page.drawText('Gerarda Sullivan', { x: M, y: y - 14, size: 22, font: tm, color: FOREST });
+    page.drawText('COUNSELLING & PSYCHOTHERAPY', { x: M, y: y - 30, size: 8, font: font, color: SAGE });
+    try {
+      var bb = await (await fetch('/images/bacp-pdf.png')).arrayBuffer();
+      var bimg = await doc.embedPng(bb), bh = 40, bw = bh * bimg.width / bimg.height;
+      page.drawImage(bimg, { x: W - M - bw, y: y - 36, width: bw, height: bh });
+    } catch (e) { /* logo is decorative; never block signing */ }
+    y -= 56;
     para('Client & Therapist Informed Consent Agreement', { size: 17, f: bold, color: FOREST, gap: 24 });
     para('Virtual (telehealth) counselling & psychotherapy', { size: 9, color: MUTED, gap: 14 });
     para('Agreement version: ' + data.version + '   |   Signed: ' + data.date, { size: 8, color: MUTED, gap: 18 });
@@ -402,7 +410,7 @@
       var body = {
         version: agreement.VERSION, plan: plan, pay: pay,
         clients: data.clients.map(function (c) { return { fullName: c.fullName, email: c.email }; }),
-        companyWebsite: ($('companyWebsite') || {}).value || '', msSinceLoad: Date.now() - loadedAt,
+        hpTrap: ($('hpTrap') || {}).value || '', msSinceLoad: Date.now() - loadedAt,
         pdfBase64: btoa(bin)
       };
       var res = await fetch('/.netlify/functions/consent-submit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
