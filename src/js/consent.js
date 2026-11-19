@@ -216,7 +216,16 @@
     function need(s) { if (y - s < M) addPage(); }
     function wrap(t, f, size, w) {
       var out = [], cur = '';
-      safe(t).split(' ').forEach(function (word) { var tr = cur ? cur + ' ' + word : word; if (f.widthOfTextAtSize(tr, size) > w && cur) { out.push(cur); cur = word; } else cur = tr; });
+      var words = [];
+      safe(t).split(' ').forEach(function (word) {
+        /* break very long unspaced tokens (long emails, URLs) so nothing runs off the page */
+        while (f.widthOfTextAtSize(word, size) > w && word.length > 1) {
+          var k = word.length; while (k > 1 && f.widthOfTextAtSize(word.slice(0, k), size) > w) k--;
+          words.push(word.slice(0, k)); word = word.slice(k);
+        }
+        words.push(word);
+      });
+      words.forEach(function (word) { var tr = cur ? cur + ' ' + word : word; if (f.widthOfTextAtSize(tr, size) > w && cur) { out.push(cur); cur = word; } else cur = tr; });
       if (cur) out.push(cur); return out;
     }
     function para(t, o) {
@@ -278,7 +287,7 @@
         page.drawImage(img, { x: x, y: yy - 2, width: dims.width * sc, height: dims.height * sc });
       } else page.drawText(safe(c.sigText), { x: x, y: yy + 6, size: 22, font: script, color: FOREST, maxWidth: sw - 14 });
       yy -= 6; page.drawLine({ start: { x: x, y: yy }, end: { x: x + sw - 20, y: yy }, thickness: 0.5, color: LINE }); yy -= 12;
-      ['Full name: ' + c.printed, 'Signed in: ' + c.place, 'Date signed: ' + data.date].forEach(function (t) { page.drawText(safe(t), { x: x, y: yy, size: 8.5, font: font, color: TEXT, maxWidth: sw - 14 }); yy -= 12; });
+      ['Full name: ' + c.printed, 'Signed in: ' + c.place, 'Date signed: ' + data.date].forEach(function (t) { wrap(t, font, 8.5, sw - 24).forEach(function (l) { page.drawText(l, { x: x, y: yy, size: 8.5, font: font, color: TEXT }); yy -= 12; }); });
     }
     y = top - 56 - 6 - 12 - 36 - 24; need(165);
     page.drawText('THERAPIST', { x: M, y: y, size: 8.5, font: bold, color: SAGE }); y -= 72;
