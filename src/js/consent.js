@@ -325,7 +325,7 @@
     y -= 6;
     page.drawLine({ start: { x: M, y: y }, end: { x: M + 200, y: y }, thickness: 0.5, color: LINE }); y -= 12;
     page.drawText('Gerarda Sullivan - Registered Member MBACP 416049', { x: M, y: y, size: 8.5, font: font, color: TEXT }); y -= 12;
-    page.drawText('Date: ' + data.date, { x: M, y: y, size: 8.5, font: font, color: TEXT });
+    page.drawText('Pre-signed by the Therapist. This agreement takes effect on the date each Client signs.', { x: M, y: y, size: 8, font: font, color: MUTED });
     return doc.save();
   }
 
@@ -448,7 +448,6 @@
     var a = document.createElement('a'); a.href = pdfUrl; a.download = 'Signed-consent-agreement.pdf'; document.body.appendChild(a); a.click(); a.remove();
   });
 
-  $('therapistDate').textContent = todayStr();
   buildSigCards();
   if (IS_LIVE && $('testBanner')) $('testBanner').style.display = 'none';
   fetch('/agreement.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(renderAgreement).catch(function () {
