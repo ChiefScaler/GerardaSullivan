@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consent Agreement &amp; Booking | Gerarda Sullivan Counselling &amp; Psychotherapy</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Beau+Rivage&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/klaro@0.7.21/dist/klaro.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/klaro@0.7.21/dist/klaro.min.js"></script>
+  <script src="js/klaro-config.js"></script>
+  <!-- Google Analytics (GA4) — only runs after the visitor accepts Analytics cookies (see cookie settings) -->
+  <script type="text/plain" data-name="analytics" class="klaro" async src="https://www.googletagmanager.com/gtag/js?id=G-QV83X7DX5H"></script>
+  <script type="text/plain" data-name="analytics" class="klaro">
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QV83X7DX5H');
+  </script>
+  <style>
+    /* ===== Sign-contract page — scoped additions on top of style.css ===== */
+    .sc-header {
+      padding: calc(var(--nav-height) + 48px) 0 32px;
+      background: var(--stone);
+      text-align: center;
+    }
+    .sc-header .section-eyebrow { margin-bottom: 14px; }
+    .sc-header h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.9rem, 4vw, 2.6rem);
+      font-weight: 500;
+      color: var(--forest);
+      line-height: 1.25;
+      margin-bottom: 14px;
+    }
+    .sc-header p { max-width: 500px; margin: 0 auto; color: var(--text-mid); font-size: 0.95rem; }
+
+    .sc-body { background: var(--stone); padding: 0 0 72px; }
+
+    .envelope-strip {
+      max-width: 760px; margin: 0 auto 40px;
+      background: #fff; border: 1.5px solid var(--border); border-radius: var(--radius-lg);
+      padding: 20px 28px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+    }
+    .envelope-field .label { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); margin-bottom: 4px; }
+    .envelope-field .value { font-size: 0.9rem; color: var(--forest); font-weight: 500; }
+    @media (max-width: 640px) { .envelope-strip { grid-template-columns: 1fr; } }
+
+    .doc-wrap { max-width: 760px; margin: 0 auto 32px; }
+    .doc-card { background: #fff; border: 1.5px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow); overflow: hidden; }
+    .doc-card-head { padding: 24px 32px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .doc-card-head h2 { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 500; color: var(--forest); }
+    .doc-progress { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text-light); white-space: nowrap; }
+    .doc-progress.complete { color: var(--sage); }
+    .doc-scroll { max-height: 420px; overflow-y: auto; padding: 8px 32px 32px; }
+    .doc-scroll::-webkit-scrollbar { width: 8px; }
+    .doc-scroll::-webkit-scrollbar-track { background: var(--stone); }
+    .doc-scroll::-webkit-scrollbar-thumb { background: var(--sage-mid, #a8c0a8); border-radius: 4px; }
+    .doc-scroll h3 { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 500; color: var(--forest); margin-top: 28px; margin-bottom: 8px; }
+    .doc-scroll h3:first-of-type { margin-top: 0; }
+    .doc-scroll p { font-size: 0.88rem; color: var(--text-mid); margin-bottom: 10px; }
+    .doc-scroll .fill { color: var(--forest); font-weight: 500; }
+    .doc-scroll .end-marker { text-align: center; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sage-mid, #a8c0a8); padding-top: 20px; margin-top: 12px; border-top: 1px dashed var(--border); }
+    .scroll-nudge { text-align: center; padding: 10px 32px; font-size: 0.78rem; color: var(--sage); background: var(--blue-grey-pale); border-top: 1px solid var(--border); }
+    .scroll-nudge.hidden { display: none; }
+
+    .sign-card { background: #fff; border: 1.5px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow); padding: 32px; transition: opacity var(--transition); }
+    .sign-card.locked { opacity: 0.45; pointer-events: none; }
+    .sign-card h2 { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 500; color: var(--forest); margin-bottom: 4px; }
+    .sign-card > p.lead { font-size: 0.85rem; color: var(--text-mid); margin-bottom: 24px; }
+
+    .signature-box { border: 1.5px dashed var(--sage-mid, #a8c0a8); border-radius: var(--radius); background: var(--blue-grey-pale); padding: 18px 20px; margin-bottom: 20px; min-height: 76px; display: flex; align-items: center; }
+    .signature-preview { font-family: 'Beau Rivage', 'Brush Script MT', cursive; font-size: 2.2rem; color: var(--forest); line-height: 1; }
+    .signature-placeholder { font-size: 0.82rem; color: var(--text-light); font-style: italic; }
+
+    .agree-row { display: flex; align-items: flex-start; gap: 12px; padding: 16px 18px; background: var(--stone); border-radius: var(--radius); margin-bottom: 24px; }
+    .agree-row input[type=checkbox] { margin: 3px 0 0; width: 18px !important; min-width: 18px; max-width: 18px; height: 18px; padding: 0; accent-color: var(--sage); flex: 0 0 18px; }
+    .agree-row label { flex: 1 1 auto; min-width: 0; font-size: 0.9rem; color: var(--text-mid); line-height: 1.6; cursor: pointer; }
+
+    .btn-primary:disabled { background: var(--sage-mid, #a8c0a8); cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+
+    .meta-note { margin-top: 18px; font-size: 0.76rem; color: var(--text-light); line-height: 1.6; text-align: center; }
+    .form-error { display: none; background: #fdf2f0; border: 1px solid rgba(190,90,70,0.35); border-radius: var(--radius); padding: 14px 18px; margin-bottom: 18px; color: #9c4432; font-size: 0.85rem; }
+
+    .success-card { display: none; background: #fff; border: 1.5px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow); padding: 56px 48px; text-align: center; }
+    .success-icon { width: 56px; height: 56px; background: rgba(122,158,126,0.14); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+    .success-icon svg { width: 26px; height: 26px; stroke: var(--sage); }
+    .success-card h2 { font-family: var(--font-serif); font-size: 1.7rem; font-weight: 500; color: var(--forest); margin-bottom: 12px; }
+    .success-card p { font-size: 0.92rem; color: var(--text-mid); max-width: 420px; margin: 0 auto 8px; }
+    .success-ref { display: inline-block; margin-top: 20px; padding: 8px 18px; background: var(--blue-grey-pale); border-radius: 40px; font-size: 0.78rem; font-weight: 500; color: var(--forest); font-variant-numeric: tabular-nums; }
+
+
+    .who-toggle { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 22px; }
+    .who-opt { flex: 1 1 200px; display: flex; align-items: center; gap: 10px; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: var(--radius); cursor: pointer; font-size: 0.9rem; color: var(--forest); background: #fff; }
+    .who-opt:has(input:checked) { border-color: var(--sage); background: var(--blue-grey-pale); }
+    .who-opt input { accent-color: var(--sage); }
+    .signer-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 8px; }
+    .signer-grid.two { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 760px) { .signer-grid.two { grid-template-columns: 1fr; } }
+    .signer { border: 1.5px solid var(--border); border-radius: var(--radius); padding: 8px 20px 20px; min-width: 0; }
+    .signer[hidden] { display: none; }
+    .signer-title { font-family: var(--font-serif); font-size: 1.1rem; color: var(--forest); padding: 0 8px; }
+    .sub-head { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-light); margin: 18px 0 8px; }
+    .sub-head small, .form-field label small { font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--text-light); }
+    .signer .form-field { margin-bottom: 12px; }
+    .signer .form-field label, #signForm > .form-field label { display: block; font-size: 0.8rem; color: var(--text-mid); margin-bottom: 4px; }
+    .signer input, .signer textarea, #signForm > .form-field textarea { width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: var(--radius); font: inherit; font-size: 0.9rem; background: #fff; color: var(--forest); }
+    .signer input:focus, .signer textarea:focus, #signForm > .form-field textarea:focus { outline: none; border-color: var(--sage); }
+    #signForm > .form-field { margin: 16px 0; }
+    .doc-scroll ul { margin: 0 0 12px 20px; }
+    .doc-scroll li { font-size: 0.88rem; color: var(--text-mid); margin-bottom: 6px; }
+    .doc-scroll .intro { font-style: italic; }
+
+
+    .demo-banner { max-width: 760px; margin: 0 auto 24px; padding: 12px 18px; background: #fff7e0; border: 1.5px solid #e6c766; border-radius: var(--radius); color: #6b5410; font-size: 0.88rem; text-align: center; }
+    .step-card { max-width: 760px; margin: 0 auto 24px; background: #fff; border: 1.5px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow); padding: 28px 32px; }
+    .step-card h2 { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 500; color: var(--forest); margin-bottom: 16px; }
+    .step-card h2 small { font-family: var(--font-sans, inherit); font-size: 0.75rem; color: var(--text-light); font-weight: 400; }
+    .step-n { display: inline-flex; width: 26px; height: 26px; border-radius: 50%; background: var(--sage); color: #fff; font-size: 0.8rem; align-items: center; justify-content: center; margin-right: 8px; font-family: var(--font-sans, inherit); }
+    .choice-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .choice-col { display: grid; gap: 10px; }
+    @media (max-width: 560px) { .choice-row { grid-template-columns: 1fr; } .step-card { padding: 22px 20px; } }
+    .choice { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: var(--radius); cursor: pointer; background: #fff; }
+    .choice:has(input:checked) { border-color: var(--sage); background: var(--blue-grey-pale); }
+    .choice input { accent-color: var(--sage); }
+    .choice span { display: flex; flex-direction: column; color: var(--forest); font-size: 0.92rem; }
+    .choice em { font-style: normal; color: var(--text-mid); font-size: 0.85rem; margin-top: 2px; }
+    .pay-fields { margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--border); }
+    .pay-fields[hidden], #agreementWrap[hidden] { display: none; }
+    .pay-fields .form-field, .cform .form-field { margin-bottom: 12px; }
+    .pay-fields label, .cform label, .sigfield label { display: block; font-size: 0.8rem; color: var(--text-mid); margin-bottom: 4px; }
+    .pay-fields label small, .cform label small { color: var(--text-light); }
+    .pay-fields input, .cform input, .cform textarea, .sigfield input, .sigfield textarea { width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: var(--radius); font: inherit; font-size: 0.9rem; background: #fff; color: var(--forest); }
+    .pay-fields input:focus, .cform input:focus, .cform textarea:focus, .sigfield input:focus { outline: none; border-color: var(--sage); }
+    .doc-scroll.tall { max-height: 70vh; }
+    .doc-scroll h3 { text-transform: uppercase; letter-spacing: 0.02em; font-size: 1rem; }
+    .cgrid { display: grid; gap: 10px 16px; margin: 6px 0 14px; align-items: start; }
+    .cgrid .ch { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sage); }
+    .cgrid .rl { font-size: 0.85rem; font-weight: 600; color: var(--forest); padding-top: 10px; }
+    .cgrid input, .cgrid textarea { width: 100%; padding: 9px 10px; border: 1.5px solid var(--border); border-radius: var(--radius); font: inherit; font-size: 0.88rem; background: #fff; color: var(--forest); }
+    .cgrid .c2[hidden] { display: none; }
+    /* fields the client must complete: warm amber until filled, red if missed */
+    .req { background: #fff3cf !important; border: 2px solid #c9951c !important; }
+    .req.ok { background: #fff !important; border: 2px solid var(--sage) !important; }
+    .req.invalid, .agree-row.invalid, .sigpad.invalid { background: #fde7e7 !important; border: 2px solid #c0392b !important; box-shadow: 0 0 0 3px rgba(192,57,43,0.18); }
+    .agree-row.invalid { border-radius: var(--radius); }
+    .fill-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; padding: 10px 32px; font-size: 0.8rem; color: var(--text-mid); background: var(--stone); border-bottom: 1px solid var(--border); }
+    .fill-legend i { display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: -2px; margin-right: 6px; }
+    .fill-legend .a { background: #fff3cf; border: 2px solid #c9951c; }
+    .fill-legend .g { background: #fff; border: 2px solid var(--sage); }
+    @media (max-width: 640px) { .cgrid { grid-template-columns: 1fr !important; } .cgrid .rl { padding-top: 6px; } .cgrid .ch.empty { display: none; } }
+    .facts { display: grid; grid-template-columns: 220px 1fr; gap: 6px 16px; margin: 6px 0 14px; font-size: 0.88rem; color: var(--text-mid); }
+    .facts b { color: var(--forest); font-weight: 600; }
+    @media (max-width: 560px) { .facts { grid-template-columns: 1fr; } }
+    .therapist-sign { margin-top: 22px; margin-bottom: 22px; }
+    .therapist-meta { font-size: 0.8rem; color: var(--text-mid); line-height: 1.6; }
+    .sig-tabs { display: flex; gap: 8px; margin: 6px 0 10px; }
+    .sig-tabs button { border: 1.5px solid var(--border); background: #fff; border-radius: 40px; padding: 6px 14px; font: inherit; font-size: 0.78rem; cursor: pointer; color: var(--text-mid); }
+    .sig-tabs button.on { border-color: var(--sage); background: var(--blue-grey-pale); color: var(--forest); }
+    .sigpad { width: 100%; height: 130px; border: 1.5px dashed var(--sage-mid, #a8c0a8); border-radius: var(--radius); background: var(--blue-grey-pale); touch-action: none; display: block; }
+    .sig-clear { margin-top: 6px; border: 0; background: none; color: var(--sage); font: inherit; font-size: 0.78rem; cursor: pointer; text-decoration: underline; }
+    .sigfield { margin-bottom: 12px; }
+    .next-steps { margin-top: 28px; padding-top: 24px; border-top: 1px dashed var(--border); }
+    .next-steps .note { font-size: 0.85rem; color: var(--text-mid); max-width: 460px; margin: 12px auto 0; }
+    .next-steps .demo-note { font-size: 0.78rem; color: #8a6d0f; margin-top: 10px; }
+    .success-card .btn { text-decoration: none; display: inline-block; }
+
+    .sc-foot-note { max-width: 760px; margin: 0 auto; text-align: center; font-size: 0.78rem; color: var(--text-light); line-height: 1.7; }
+
+    .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: sc-spin 0.7s linear infinite; vertical-align: -3px; margin-right: 8px; }
+    @keyframes sc-spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 560px) {
+      .doc-card-head, .doc-scroll, .sign-card, .success-card { padding-left: 20px; padding-right: 20px; }
+    }
+  </style>
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gerarda-sullivan-counselling.com/consent">
+  <meta property="og:title" content="Consent Agreement & Booking | Gerarda Sullivan Counselling & Psychotherapy">
+  <meta property="og:site_name" content="Gerarda Sullivan Counselling & Psychotherapy">
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-name">Gerarda Sullivan</span>
+        <span class="logo-sub">Counselling & Psychotherapy</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="how-i-work.html">How I Work</a></li>
+        <li><a href="fees.html">Fees</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="https://calendar.app.google/1yniNk9xHVaWzoUQ8" target="_blank" rel="noopener" class="nav-cta">Book a Consultation</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="sc-header">
+    <div class="container">
+      <p class="section-eyebrow">New client</p>
+      <h1>Consent agreement &amp; booking</h1>
+      <p>Choose your session type, read and sign the agreement, then book your first session. You only need to sign once.</p>
+    </div>
+  </header>
+
+  <section class="sc-body">
+    <div class="container">
+
+      <div class="demo-banner" id="testBanner" role="note"><strong>Test version:</strong> your signed copy is emailed to the address(es) you enter, but Gerarda is not notified. Please don\u2019t complete a booking.</div>
+      <input type="text" id="companyWebsite" name="companyWebsite" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+
+      <div class="step-card" id="step1">
+        <h2><span class="step-n">1</span> Who is the therapy for?</h2>
+        <div class="choice-row" role="radiogroup" aria-label="Who is the therapy for?">
+          <label class="choice"><input type="radio" name="plan" value="1"><span><strong>Individual</strong><em>&pound;80 per session</em></span></label>
+          <label class="choice"><input type="radio" name="plan" value="2"><span><strong>Couples</strong><em>&pound;150 per session</em></span></label>
+        </div>
+      </div>
+
+      <div class="step-card" id="step2">
+        <h2><span class="step-n">2</span> How will your sessions be paid for? <small>(required)</small></h2>
+        <div class="choice-col" role="radiogroup" aria-label="How will your sessions be paid for?">
+          <label class="choice"><input type="radio" name="pay" value="self"><span><strong>I'm paying myself</strong></span></label>
+          <label class="choice"><input type="radio" name="pay" value="insurer"><span><strong>My health insurer is paying</strong></span></label>
+          <label class="choice"><input type="radio" name="pay" value="referral"><span><strong>An organisation or employer has referred me</strong></span></label>
+        </div>
+        <div class="pay-fields" id="payInsurer" hidden>
+          <div class="form-field"><label for="ins_insurer">Insurer name *</label><input class="req" id="ins_insurer" data-pay="insurer"></div>
+          <div class="form-field"><label for="ins_holder">Policy holder name *</label><input class="req" id="ins_holder" data-pay="insurer"></div>
+          <div class="form-field"><label for="ins_member">Membership / policy number *</label><input class="req" id="ins_member" data-pay="insurer"></div>
+          <div class="form-field"><label for="ins_auth">Authorisation (pre-authorisation) number *</label><input class="req" id="ins_auth" data-pay="insurer"></div>
+          <div class="form-field"><label for="ins_sessions">Number of sessions authorised <small>(optional)</small></label><input id="ins_sessions" inputmode="numeric"></div>
+        </div>
+        <div class="pay-fields" id="payReferral" hidden>
+          <div class="form-field"><label for="ref_org">Organisation name *</label><input class="req" id="ref_org" data-pay="referral"></div>
+          <div class="form-field"><label for="ref_contact">Contact name *</label><input class="req" id="ref_contact" data-pay="referral"></div>
+          <div class="form-field"><label for="ref_details">Contact email or phone *</label><input class="req" id="ref_details" data-pay="referral"></div>
+          <div class="form-field"><label for="ref_ref">Reference number <small>(optional)</small></label><input id="ref_ref"></div>
+        </div>
+      </div>
+
+      <div id="agreementWrap" hidden>
+        <div class="doc-wrap">
+          <div class="doc-card">
+            <div class="doc-card-head">
+              <h2>Client &amp; Therapist Informed Consent Agreement</h2>
+              <span class="doc-progress" id="scrollProgress">Scroll to read</span>
+            </div>
+            <p class="fill-legend"><span><i class="a"></i>Amber box = you need to fill this in</span><span><i class="g"></i>Green outline = done</span></p>
+            <div class="doc-scroll tall" id="docScroll"><p>Loading the agreement&hellip;</p></div>
+            <div class="scroll-nudge" id="scrollNudge">Scroll to the end of the agreement to unlock signing &darr;</div>
+          </div>
+        </div>
+
+        <form class="sign-card locked" id="signForm" novalidate>
+          <h2>15. CONSENT &amp; SIGNATURES</h2>
+          <p class="lead" id="consentLead"></p>
+          <div class="form-error" id="formError" role="alert"></div>
+          <div class="signer-grid" id="sigGrid"></div>
+
+          <fieldset class="signer therapist-sign">
+            <legend class="signer-title">THERAPIST</legend>
+            <div class="signature-box"><img id="gerardaSig" src="/images/gerarda-signature.png" alt="Signature of Gerarda Sullivan" style="height:64px;width:auto;display:block"></div>
+            <p class="therapist-meta">Gerarda Sullivan &middot; Registered Member MBACP 416049<br>Already signed &middot; <span id="therapistDate"></span></p>
+          </fieldset>
+
+          <button type="submit" class="btn btn-primary" id="submitBtn">Sign agreement</button>
+          <p class="meta-note" id="submitNote">Complete every required field to sign.</p>
+        </form>
+      </div>
+
+      <div class="success-card" id="successCard">
+        <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h2>Agreement signed</h2>
+        <p>Thank you. Your agreement is signed and you won't need to sign it again.</p>
+        <p style="margin-top:16px"><button type="button" class="btn btn-outline" id="downloadBtn">Download signed copy (PDF)</button></p>
+        <div id="nextSteps" class="next-steps"></div>
+      </div>
+
+      <p class="sc-foot-note">Your details are used only to provide your therapy and are handled under UK GDPR &mdash; see the <a href="privacy.html">Privacy Policy</a>. Questions? <a href="mailto:info@gerarda-sullivan-counselling.com">info@gerarda-sullivan-counselling.com</a></p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-centred">
+      <p class="footer-name">Gerarda Sullivan</p>
+      <p class="footer-tagline">Counselling & Psychotherapy</p>
+      <div class="footer-badges">
+        <a href="https://www.bacp.co.uk/therapists/416049/gerarda-sullivan/amesbury-sp4" target="_blank" rel="noopener" class="footer-bacp-link" aria-label="BACP registered member directory listing">
+          <img src="images/bacp_logo_-_416049.png" alt="BACP Registered Member" class="footer-bacp">
+        </a>
+        <a href="https://www.psychologytoday.com/profile/1723607" class="sx-verified-seal"></a>
+        <script type="text/javascript" src="https://member.psychologytoday.com/verified-seal.js" data-badge="13" data-id="1723607" data-code="aHR0cHM6Ly93d3cucHN5Y2hvbG9neXRvZGF5LmNvbS9hcGkvdmVyaWZpZWQtc2VhbC9zZWFscy8xMy9wcm9maWxlLzE3MjM2MDc/Y2FsbGJhY2s9c3hjYWxsYmFjaw=="></script>
+      </div>
+      <p class="footer-bacp-text">Accredited Register · Professional Standards Authority</p>
+      <nav class="footer-nav">
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="how-i-work.html">How I Work</a>
+        <a href="fees.html">Fees</a>
+        <a href="faq.html">FAQ</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="#" onclick="klaro.show();return false;">Cookie settings</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p>&#169; 2026 Gerarda Sullivan &middot; All rights reserved &middot; Online Counselling &amp; Psychotherapy</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script src="/js/pdf-lib.min.js"></script>
+  <script src="/js/consent.js"></script>
+</body>
+</html>

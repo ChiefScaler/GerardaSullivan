@@ -22,9 +22,11 @@ module.exports = function (eleventyConfig) {
     "services.html",
     "how-i-work.html",
     "fees.html",
+    "faq.html",
     "contact.html",
     "privacy.html",
     "sign-contract.html",
+    "consent.html",
     "thank-you.html",
   ];
   staticPages.forEach((page) => eleventyConfig.addPassthroughCopy(`src/${page}`));
@@ -58,6 +60,16 @@ module.exports = function (eleventyConfig) {
     const words = String(content).trim().split(/\s+/).length;
     const minutes = Math.max(1, Math.round(words / 200));
     return `${minutes} min read`;
+  });
+
+  // --- Consent agreement text: written from the single shared source so the
+  //     signing page and the signed PDF always use identical wording. ---
+  eleventyConfig.on("eleventy.after", async () => {
+    const fs = require("fs");
+    const path = require("path");
+    const content = require("./netlify/functions/agreement-content.js");
+    fs.mkdirSync("_site", { recursive: true });
+    fs.writeFileSync(path.join("_site", "agreement.json"), JSON.stringify(content));
   });
 
   return {
