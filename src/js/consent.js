@@ -38,15 +38,18 @@
   /* ---------- rendering ---------- */
   function fieldHtml(i, f) {
     var id = 'c' + i + '_' + f[0];
-    var attrs = ' id="' + id + '" data-i="' + i + '" data-k="' + f[0] + '"' + (f[3] ? ' autocomplete="' + f[3] + '"' : '');
+    var ac = (f[3] && i === 0) ? f[3] : 'nope';  // only Client 1's own details may be autofilled; everything else is never guessed by the browser
+    var ph = f[2] === 'tel' ? ' placeholder="+44 7700 900123" inputmode="tel"' : '';
+    var attrs = ' id="' + id + '" name="gs_' + id + '" data-i="' + i + '" data-k="' + f[0] + '" autocomplete="' + ac + '"' + ph + (f[0] === 'gpPhone' ? ' class="opt-tel"' : '');
     var rq = (REQ1.indexOf(f[0]) > -1 || REQ2.indexOf(f[0]) > -1) ? ' class="req"' : '';
+    if (rq) attrs = attrs.replace(' class="opt-tel"', '');
     return f[2] === 'textarea' ? '<textarea' + attrs + rq + ' rows="2"></textarea>' : '<input' + attrs + rq + ' type="' + f[2] + '">';
   }
   function gridHtml(fields, req) {
     var h = '<div class="cgrid" style="grid-template-columns:200px 1fr 1fr"><span class="ch empty"></span><span class="ch">Client 1</span><span class="ch c2" hidden>Client 2 (couples only)</span>';
     fields.forEach(function (f) {
       var star = req.indexOf(f[0]) > -1 ? ' *' : '';
-      h += '<span class="rl">' + esc(f[1]) + star + '</span><div>' + fieldHtml(0, f) + '</div><div class="c2" hidden>' + fieldHtml(1, f) + '</div>';
+      h += '<span class="rl">' + esc(f[1]) + star + (f[2] === 'tel' ? '<small class="hint">Start with your country code, e.g. +44 or +34</small>' : '') + '</span><div>' + fieldHtml(0, f) + '</div><div class="c2" hidden>' + fieldHtml(1, f) + '</div>';
     });
     return h + '</div>';
   }
@@ -79,12 +82,12 @@
 
   function sigCardHtml(i) {
     return '<fieldset class="signer" data-i="' + i + '"><legend class="signer-title">CLIENT ' + (i + 1) + (i === 1 ? ' (couples only)' : '') + '</legend>' +
-      '<div class="sigfield"><label for="p' + i + '_name">Full name (printed) *</label><input class="req" id="p' + i + '_name" data-i="' + i + '"></div>' +
+      '<div class="sigfield"><label for="p' + i + '_name">Full name (printed) *</label><input class="req" id="p' + i + '_name" name="gs_p' + i + '_name" autocomplete="' + (i === 0 ? 'name' : 'nope') + '" data-i="' + i + '"></div>' +
       '<div class="sigfield"><label>Signature * <small>(type or draw)</small></label>' +
       '<div class="sig-tabs"><button type="button" class="on" data-tab="type" data-i="' + i + '">Type</button><button type="button" data-tab="draw" data-i="' + i + '">Draw</button></div>' +
-      '<div id="p' + i + '_type"><input class="req" id="p' + i + '_sigtext" placeholder="Type your full name" data-i="' + i + '"><div class="signature-box" style="margin-top:10px"><span class="signature-preview" id="p' + i + '_prev"></span><span class="signature-placeholder" id="p' + i + '_ph">Your signature appears here</span></div></div>' +
+      '<div id="p' + i + '_type"><input class="req" id="p' + i + '_sigtext" name="gs_p' + i + '_sigtext" autocomplete="nope" placeholder="Type your full name" data-i="' + i + '"><div class="signature-box" style="margin-top:10px"><span class="signature-preview" id="p' + i + '_prev"></span><span class="signature-placeholder" id="p' + i + '_ph">Your signature appears here</span></div></div>' +
       '<div id="p' + i + '_draw" hidden><canvas class="sigpad" id="p' + i + '_pad" width="640" height="260"></canvas><button type="button" class="sig-clear" data-clear="' + i + '">Clear</button></div></div>' +
-      '<div class="sigfield"><label for="p' + i + '_place">Signed in (town / country) *</label><input class="req" id="p' + i + '_place"></div>' +
+      '<div class="sigfield"><label for="p' + i + '_place">Signed in (town / country) *</label><input class="req" id="p' + i + '_place" name="gs_p' + i + '_place" autocomplete="nope"></div>' +
       '<div class="sigfield"><label>Date signed</label><input value="' + esc(todayStr()) + '" readonly></div>' +
       '<div class="agree-row"><input type="checkbox" id="p' + i + '_agree"><label for="p' + i + '_agree">I have read this agreement in full and agree to its terms</label></div></fieldset>';
   }
@@ -119,6 +122,8 @@
     var ok = REQ1.every(function (k) { return val('c' + i + '_' + k); }) && REQ2.every(function (k) { return val('c' + i + '_' + k); });
     if (!ok) return false;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('c' + i + '_email'))) return false;
+    if (!phoneOk(val('c' + i + '_phone')) || !phoneOk(val('c' + i + '_emPhone'))) return false;
+    if (val('c' + i + '_gpPhone') && !phoneOk(val('c' + i + '_gpPhone'))) return false;
     if (val('p' + i + '_name').length < 2 || !val('p' + i + '_place') || !$('p' + i + '_agree').checked) return false;
     var signed = mode[i] === 'draw' ? inked[i] : val('p' + i + '_sigtext').length > 1;
     return signed;
@@ -133,17 +138,20 @@
     if (!pay) return 'Choose how your sessions will be paid for (step 2).';
     if (!payOk()) return 'Please complete the required payment details (step 2).';
     if (!unlocked) return 'Scroll to the end of the agreement to unlock signing.';
-    if (!clientOk(0)) return 'Client 1: complete the required details in the agreement above, then sign below.';
+    if (!clientOk(0)) return 'Client 1: complete the required details in the agreement above (phone numbers need a country code, e.g. +44), then sign below.';
     if (isCouple()) {
-      if (!clientOk(1)) return 'Client 2: complete the required details in the agreement above, then sign below. Both clients must sign.';
+      if (!clientOk(1)) return 'Client 2: complete the required details in the agreement above (phone numbers need a country code, e.g. +44), then sign below. Both clients must sign.';
       if (val('c0_email').toLowerCase() === val('c1_email').toLowerCase()) return 'Each person needs their own, different email address.';
     }
     return '';
   }
   /* ---------- highlighting ---------- */
+  function phoneOk(v) { var t = v.replace(/\s/g, ''); return /^(\+|00)/.test(t) && (t.match(/\d/g) || []).length >= 8; }
   function elBad(el) {
     if (!el.closest('[hidden]') && !el.disabled) {
       var id = el.id, v = el.value.trim();
+      if (/_gpPhone$/.test(id)) return !!v && !phoneOk(v);
+      if (/_(phone|emPhone)$/.test(id)) return !phoneOk(v);
       if (/_email$/.test(id)) {
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return true;
         if (id === 'c1_email' && isCouple() && v.toLowerCase() === val('c0_email').toLowerCase()) return true;
@@ -163,6 +171,7 @@
     var n = isCouple() ? 2 : 1;
     for (var i = 0; i < n; i++) {
       document.querySelectorAll('#docScroll .req[id^="c' + i + '_"]').forEach(function (el) { if (elBad(el)) out.push(el); });
+      var gp = $('c' + i + '_gpPhone'); if (gp && elBad(gp)) out.push(gp);
       ['name', 'sigtext', 'place'].forEach(function (k) { var el = $('p' + i + '_' + k); if (el && elBad(el)) out.push(el); });
       if (sigBad(i)) out.push($('p' + i + '_pad'));
       if (!$('p' + i + '_agree').checked) out.push($('p' + i + '_agree').parentNode);
@@ -175,6 +184,7 @@
       el.classList.toggle('ok', !bad && !el.closest('[hidden]'));
       if (!bad) el.classList.remove('invalid');
     });
+    document.querySelectorAll('.opt-tel').forEach(function (el) { if (!elBad(el)) el.classList.remove('invalid'); });
     document.querySelectorAll('.agree-row, .sigpad').forEach(function (el) {
       var i = +(el.id ? el.id.charAt(1) : el.querySelector('input').id.charAt(1));
       var bad = el.classList.contains('sigpad') ? sigBad(i) : !el.querySelector('input').checked;
@@ -418,7 +428,7 @@
       var body = {
         version: agreement.VERSION, plan: plan, pay: pay,
         clients: data.clients.map(function (c) { return { fullName: c.fullName, email: c.email }; }),
-        hpTrap: ($('hpTrap') || {}).value || '', msSinceLoad: Date.now() - loadedAt,
+        hpTrap: !!(($('hpTrap') || {}).checked), msSinceLoad: Date.now() - loadedAt,
         pdfBase64: btoa(bin)
       };
       var res = await fetch('/.netlify/functions/consent-submit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });

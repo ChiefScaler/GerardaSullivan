@@ -34,7 +34,7 @@ exports.handler = async (event) => {
 
   let p;
   try { p = JSON.parse(event.body || '{}'); } catch (e) { return fail(400, 'Invalid submission.'); }
-  if (p.hpTrap) return fail(400, 'Something went wrong with the form. Please refresh the page and try again, or email info@gerarda-sullivan-counselling.com.');
+  if (p.hpTrap === true || (typeof p.hpTrap === 'string' && p.hpTrap)) return fail(400, 'Something went wrong with the form (code HP). Please refresh the page and try again, or email info@gerarda-sullivan-counselling.com.');
   if (typeof p.msSinceLoad === 'number' && p.msSinceLoad < 2500) return fail(400, 'Please take a moment to review the agreement before signing.');
 
   const rawClients = Array.isArray(p.clients) ? p.clients.slice(0, 2) : [];
