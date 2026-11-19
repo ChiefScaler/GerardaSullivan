@@ -15,8 +15,8 @@
 //   PRACTICE_TEST_NOTIFY_EMAIL   (optional; on previews, the "Gerarda copy" goes here
 //                                 instead, so the whole flow can be tested safely)
 //
-// Safety: when CONTEXT !== 'production' (previews / branch deploys) Gerarda is NOT
-// emailed, and subjects are tagged [TEST].
+// Safety: unless the request arrives on gerarda-sullivan-counselling.com (the live site),
+// Gerarda is NOT emailed and subjects are tagged [TEST].
 
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
@@ -56,7 +56,10 @@ exports.handler = async (event) => {
   const pdf = Buffer.from(p.pdfBase64, 'base64');
   if (pdf.length < 1000 || pdf.length > MAX_PDF_BYTES || pdf.slice(0, 5).toString() !== '%PDF-') return fail(400, 'Signed copy could not be read. Please try again.');
 
-  const isTest = (process.env.CONTEXT || 'production') !== 'production';
+  // Test mode unless the request came in on the real website domain. (Netlify's CONTEXT
+  // variable is not reliably available at runtime, so we go by the host instead.)
+  const host = String((event.headers && (event.headers['x-forwarded-host'] || event.headers.host)) || '').toLowerCase().split(':')[0];
+  const isTest = !/(^|\.)gerarda-sullivan-counselling\.com$/.test(host);
   const reference = makeReference();
   const signedAt = new Date();
   const signedAtDisplay = signedAt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) +

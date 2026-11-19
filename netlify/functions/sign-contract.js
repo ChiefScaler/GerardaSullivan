@@ -256,7 +256,8 @@ exports.handler = async (event) => {
   }
   const shared = { presentingIssues: clean(p.presentingIssues, MAX.text) };
 
-  const isTest = (process.env.CONTEXT || 'production') !== 'production';
+  const host = String((event.headers && (event.headers['x-forwarded-host'] || event.headers.host)) || '').toLowerCase().split(':')[0];
+  const isTest = !/(^|\.)gerarda-sullivan-counselling\.com$/.test(host);
   const ip = event.headers['x-nf-client-connection-ip'] || event.headers['client-ip'] || 'unknown';
   const userAgent = clean(event.headers['user-agent'] || 'unknown', 300);
   const reference = makeReference();
