@@ -11,7 +11,7 @@
 //               { ul: [...] } bullet list
 //               { table: [[label, value], ...] } two-column facts table
 
-const VERSION = 'consent-v2-2026-11-19-draft';
+const VERSION = 'consent-v3-2026-11-19-draft';
 
 const INTRO =
   'This Consent Agreement sets out the terms on which I, the Therapist, provide online counselling and psychotherapy services to you, the Client. It reflects UK law and the ethical requirements of the British Association for Counselling and Psychotherapy (BACP). Where two people attend together (for example, couples therapy), each is a Client and each completes and signs their own column below. I work only with adults: by signing, each Client confirms they are 18 years of age or over.';
@@ -76,7 +76,7 @@ const SECTIONS = [
         'Lack of mental capacity requiring intervention to protect your welfare.'
       ] },
       { p: 'Where possible, I will discuss this with you before taking any action. In circumstances where I have serious concerns about your immediate safety, I am permitted to contact your nominated Emergency Contact person or GP / Primary Healthcare Provider using the details you have provided in this Consent Agreement.' },
-      { lead: 'Couples and joint sessions:', p: 'everything either Client shares with me, including in any individual session, is kept confidential and is not disclosed to the other Client, subject to the exceptions above.' }
+      { lead: 'Couples and joint sessions:', p: 'information shared during joint or individual couples therapy sessions is treated as confidential and will not be disclosed to the other partner without consent, subject to legal and safeguarding exceptions.' }
     ]
   },
   {
@@ -110,8 +110,8 @@ const SECTIONS = [
     blocks: [
       { lead: '12.1 Private clients.', p: 'The fee for an individual session is £80. The fee for a couples session is £150. Payment is made online by card or Stripe via the secure payment link provided at booking, or by bank transfer where agreed, and is required no later than 24 hours before the session to confirm your appointment.' },
       { lead: '12.2 Insurance and third-party funded clients.', p: 'Where your sessions are funded by an insurer, case-management company or other third-party payer, I will invoice that payer directly for the sessions it has authorised, at the rates agreed with it, and you will not be asked to pay for those sessions. The payer may need to be told the dates of sessions attended and, where required, limited administrative information; I will share only the minimum necessary and will not disclose the content of your sessions without your consent, except where Section 8 applies. You remain responsible for any session that the payer declines or does not authorise.' },
-      { lead: '12.3 Referred clients.', p: 'Where you have been referred to me by an organisation, employer or other referrer, fees are as set out in the arrangement with that organisation, which I will explain before we begin. Clause 12.2 applies to the extent that the referrer pays for your sessions.' },
-      { lead: '12.4 Cancellations.', p: 'Cancellations or changes with less than 24 hours’ notice may be charged in full, whether you are a private, insurance-funded or referred client. Where a third-party payer does not cover a late cancellation or missed session, the charge may be passed to you.' },
+      { lead: '12.3 Referred clients.', p: 'Where you have been referred to me by an organisation, employer or other referrer, fees are as set out in the arrangement with that organisation before we begin. Clause 12.2 applies to the extent that the referrer pays for your sessions.' },
+      { lead: '12.4 Cancellations.', p: 'Cancellations or changes with less than 24 hours’ notice will be charged in full, whether you are a private, insurance-funded or referred client. Where the funding organisation does not cover cancellation or non-attendance fees, the client will be personally responsible for these charges, as agreed by signing this agreement before therapy commences.' },
       { lead: '12.5 Couples.', p: 'Where two Clients attend together, each is responsible for the fees for joint sessions, unless we agree otherwise in writing.' }
     ]
   },

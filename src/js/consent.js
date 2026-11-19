@@ -255,15 +255,19 @@
     function colHead() { if (n === 2) { page.drawText('Client 1', { x: M + 130, y: y, size: 8.5, font: bold, color: SAGE }); page.drawText('Client 2', { x: M + 130 + colW, y: y, size: 8.5, font: bold, color: SAGE }); y -= 14; } }
     var col = function (k) { return data.clients.map(function (c) { return c[k]; }); };
 
-    var tm = await doc.embedFont(L.StandardFonts.TimesRoman);
-    page.drawText('Gerarda Sullivan', { x: M, y: y - 14, size: 22, font: tm, color: FOREST });
-    page.drawText('COUNSELLING & PSYCHOTHERAPY', { x: M, y: y - 30, size: 8, font: font, color: SAGE });
+    try {
+      var gb = await (await fetch('/images/gs-badge.png')).arrayBuffer();
+      var gimg = await doc.embedPng(gb), gh = 70;
+      page.drawImage(gimg, { x: M, y: y - gh + 6, width: gh * gimg.width / gimg.height, height: gh });
+    } catch (e) {
+      page.drawText('Gerarda Sullivan', { x: M, y: y - 14, size: 22, font: await doc.embedFont(L.StandardFonts.TimesRoman), color: FOREST });
+    }
     try {
       var bb = await (await fetch('/images/bacp-pdf.png')).arrayBuffer();
       var bimg = await doc.embedPng(bb), bh = 40, bw = bh * bimg.width / bimg.height;
       page.drawImage(bimg, { x: W - M - bw, y: y - 36, width: bw, height: bh });
-    } catch (e) { /* logo is decorative; never block signing */ }
-    y -= 56;
+    } catch (e) { /* logos are decorative; never block signing */ }
+    y -= 82;
     para('Client & Therapist Informed Consent Agreement', { size: 17, f: bold, color: FOREST, gap: 24 });
     para('Virtual (telehealth) counselling & psychotherapy', { size: 9, color: MUTED, gap: 14 });
     para('Agreement version: ' + data.version + '   |   Signed: ' + data.date, { size: 8, color: MUTED, gap: 18 });
@@ -293,7 +297,11 @@
       if (c.sigImg) {
         var img = await doc.embedPng(c.sigImg), dims = img.scale(1), sc = Math.min(180 / dims.width, 48 / dims.height);
         page.drawImage(img, { x: x, y: yy - 2, width: dims.width * sc, height: dims.height * sc });
-      } else page.drawText(safe(c.sigText), { x: x, y: yy + 6, size: 22, font: script, color: FOREST, maxWidth: sw - 14 });
+      } else {
+        var st = safe(c.sigText), fs = 22;
+        while (fs > 9 && script.widthOfTextAtSize(st, fs) > sw - 20) fs -= 1;
+        page.drawText(st, { x: x, y: yy + 6, size: fs, font: script, color: FOREST });
+      }
       yy -= 6; page.drawLine({ start: { x: x, y: yy }, end: { x: x + sw - 20, y: yy }, thickness: 0.5, color: LINE }); yy -= 12;
       ['Full name: ' + c.printed, 'Signed in: ' + c.place, 'Date signed: ' + data.date].forEach(function (t) { wrap(t, font, 8.5, sw - 24).forEach(function (l) { page.drawText(l, { x: x, y: yy, size: 8.5, font: font, color: TEXT }); yy -= 12; }); });
     }
